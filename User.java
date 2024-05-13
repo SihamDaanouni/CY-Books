@@ -82,7 +82,37 @@ public abstract class  User {
         public boolean isConnected(){
                 return this.connected ;
         }
+
+        // methode to create an user
+        public void createUser() {
+            try{
+                // for now I set up the database name with "database.db"
+                Connection co = DriverManager.getConnection("jdbc:sqlite:database.db");
     
+                Statement stmt = co.createStatement();
+    
+                String createTableSQL = "CREATE TABLE IF NOT EXISTS USER (id INTEGER PRIMARY KEY, name TEXT, firstName TEXT, adresse TEXT, mail TEXT, phone TEXT)";
+                stmt.execute(createTableSQL);
+    
+                String request = "INSERT INTO USER (name, firstName, adresse, mail, phone) " +
+                        "VALUES (?, ?, ?, ?, ?)";
+                // preparedStatement instead of statement because we want to integrate parameters
+                PreparedStatement pstmt = co.prepareStatement(request);
+                // Set values for parameters
+                pstmt.setString(1, this.Name);
+                pstmt.setString(2, this.FirstName);
+                pstmt.setString(3, this.address);
+                pstmt.setString(4, this.mail);
+                pstmt.setString(5, this.phone);
+    
+                pstmt.executeUpdate();
+                System.out.println("User creation was a success");
+    
+            } catch (SQLException e) {
+                // the exceptions adapt to sql
+                System.out.print(e.getMessage());
+            }
+        }
 }
 
 
