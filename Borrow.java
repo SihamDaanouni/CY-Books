@@ -61,89 +61,86 @@ public class Borrow {
         this.nbDelays = nbDelays; // je sais pas encore si cette variable est utile (à mettre dans emprunt)
     }
 
-    // First Condition, all the copy of the books are already borrow.
-     public boolean isAlreadyBorrow() {
-         Connection co = null;
-         PreparedStatement pstmt = null;
-         ResultSet rs = null;
+    // First Condition, all the copies of the books are already borrowed.
+    public boolean isAlreadyBorrow() throws SQLException {
+        Connection co = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+    
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+    
+            // Verification that there are not enough books with the same ISBN and not returned
+            String countISBNQuery = "SELECT COUNT(*) FROM Borrow WHERE ISBN = ? AND isReturn = FALSE";
+            pstmt = co.prepareStatement(countISBNQuery);
+            pstmt.setInt(1, this.ISBN);
+            rs = pstmt.executeQuery();
+    
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count >= MAX_BORROW_COUNT; // Returns true because there is at least one book to borrow
+            }
+    
+        } finally {
+            // Closing resources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error : " + e.getMessage());
+            }
+        }
+    
+        return false; // Returns false if there are no exceptions
+    }
+    
+    // Second Condition, the client has already borrowed the maximum number of books.
+    public boolean hasBorrowTooManyTimes() throws SQLException {
+        Connection co = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+    
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+    
+            // Count the number of books currently borrowed by the client
+            String countQuery = "SELECT COUNT(*) FROM Borrow WHERE mail = ? AND isReturn = FALSE";
+            pstmt = co.prepareStatement(countQuery);
+            pstmt.setString(1, this.mail);
+            rs = pstmt.executeQuery();
+    
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count >= MAX_BORROW_USER; // Returns true because the Client has not borrowed the maximum number of books (10 in this case)
+            }
+    
+        } finally {
+            // Closing resources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (co != null) {
+                    co.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error : " + e.getMessage());
+            }
+        }
+    
+        return false; // Returns false if there are no exceptions
+    }
 
-         try {
-             co = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-             // Verification that there is not enough books who have the same ISBN and aren't return
-             String countISBNQuery = "SELECT COUNT(*) FROM Borrow WHERE ISBN = ? AND isReturn = FALSE";
-             pstmt = co.prepareStatement(countISBNQuery);
-             pstmt.setInt(1, this.ISBN);
-             rs = pstmt.executeQuery();
-
-             if (rs.next()) {
-                 int count = rs.getInt(1);
-                 return count >= MAX_BORROW_COUNT; // Return True because there is at least one book to borrow
-             }
-
-         } catch (SQLException e) {
-             System.out.println("Error : " + e.getMessage());
-         } finally {
-             // cloturation of ressources
-             try {
-                 if (rs != null) {
-                     rs.close();
-                 }
-                 if (pstmt != null) {
-                     pstmt.close();
-                 }
-                 if (co != null) {
-                     co.close();
-                 }
-             } catch (SQLException e) {
-                 System.out.println("Error : " + e.getMessage());
-             }
-         }
-
-         return false; // if there are not any exception than return false
-     }
-
-     // Second Condition, the client has already borrow the maximum number of books.
-     public boolean hasBorrowTooManyTimes() {
-         Connection co = null;
-         PreparedStatement pstmt = null;
-         ResultSet rs = null;
-
-         try {
-             co = DriverManager.getConnection("jdbc:sqlite:database.db");
-
-             // Count the number of books currently borrow by the client
-             String countQuery = "SELECT COUNT(*) FROM Borrow WHERE mail = ? AND isReturn = FALSE";
-             pstmt = co.prepareStatement(countQuery);
-             pstmt.setString(1, this.mail);
-             rs = pstmt.executeQuery();
-
-             if (rs.next()) {
-                 int count = rs.getInt(1);
-                 return count >= MAX_BORROW_USER; // return True because the Client has not borrow the maximum number of book (10 in this case)
-             }
-
-         } catch (SQLException e) {
-             System.out.println("Error : " + e.getMessage());
-         } finally {
-             // cloturation of ressources
-             try {
-                 if (rs != null) {
-                     rs.close();
-                 }
-                 if (pstmt != null) {
-                     pstmt.close();
-                 }
-                 if (co != null) {
-                     co.close();
-                 }
-             } catch (SQLException e) {
-                 System.out.println("Error : " + e.getMessage());
-             }
-         }
-
-         return false; // if there are not any exception than return false
-     }
 
 
      // methode to Borrow the "ticket" into the database
