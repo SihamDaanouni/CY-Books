@@ -372,20 +372,19 @@ public class book {
         SQL = ("CREATE TABLE Books (    compteur int,\n" +
                 "                        titre VARCHAR(255),\n" +
                 "                        auteur VARCHAR(255),\n" +
+                "                        theme VARCHAR(255),\n" +
                 "                        isbn VARCHAR(255),\n" +
                 "                        edition VARCHAR(255),\n" +
                 "                        lieu_publication VARCHAR(255),\n" +
                 "                        annee_publication VARCHAR(255)\n" +
                 "); ");
         stmt.executeUpdate(SQL);
-        SQL = ("INSERT INTO Books VALUES ('" + j + "','Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'No')");
+        SQL = ("INSERT INTO Books VALUES ('" + j + "','Cardinal', 'Tom B. Erichsen','Theme', 'Skagen 21', 'Stavanger', '4006', 'No')");
 
 
         stmt.executeUpdate(SQL);
 
 
         co.close();
-
-
-    }
+}
 }
