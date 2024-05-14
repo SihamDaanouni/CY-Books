@@ -61,9 +61,6 @@ public class Borrow {
                     "timeBorrowEnd TIMESTAMP, " +
                     "isReturn BOOLEAN, " +
                     "nbDelays INTEGER, " +
-                    "PRIMARY KEY (ISBN, mail), " +
-                    "FOREIGN KEY (ISBN) REFERENCES Books(ISBN), " +
-                    "FOREIGN KEY (mail) REFERENCES Users(mail)" +
                     ")";
             stmt.execute(createTableSQL);
 
