@@ -34,7 +34,7 @@ public class Borrow {
         this.timeBorrowStart = new Date();
         this.timeBorrowEnd = timeBorrowEnd;
         // set to true because the client just borrow it
-        this.isReturn = Boolean.TRUE;
+        this.isReturn = Boolean.FALSE;
         this.nbDelays = nbDelays; // je sais pas encore si cette variable est utile (à mettre dans emprunt)
     }
 
