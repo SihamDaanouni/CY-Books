@@ -19,6 +19,7 @@ public class Main {
 
        Librairy actif = new Librairy("none", "none" ,"none" , "none", "none" );
        Client someone = new Client("_", "-" ,"_" , "_", "_" );
+        //j'ai rajouté un attribut thème dans le books donc j'ai rajouté un underscore en plus
        book laws =new book("_","_","_","_","_","_","_");
 
 
