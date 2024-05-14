@@ -19,7 +19,7 @@ public class Main {
 
        Librairy actif = new Librairy("none", "none" ,"none" , "none", "none" );
        Client someone = new Client("_", "-" ,"_" , "_", "_" );
-       book laws =new book("_","_","_","_","_","_");
+       book laws =new book("_","_","_","_","_","_","_");
 
 
 
