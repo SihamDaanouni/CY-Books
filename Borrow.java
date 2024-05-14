@@ -4,14 +4,37 @@ import java.sql.*;
  /*
     For testing put this in Main :
             // setup a date of return to 24hour after the borrow
-                Date currentDate = new Date();
-                long millisInOneDay = 24 * 60 * 60 * 1000; // Nombre de millisecondes dans une journée
-                Date date24HoursLater = new Date(currentDate.getTime() + millisInOneDay);
+            Date currentDate = new Date();
+            long millisInOneDay = 24 * 60 * 60 * 1000; // Nombre de millisecondes dans une journée
+            Date date24HoursLater = new Date(currentDate.getTime() + millisInOneDay);
 
-                Borrow firstLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
-                firstLoan.toBorrow();
+            Borrow firstLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow SndLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow TrdLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow FrthLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow FivLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow SixLoan = new Borrow(1234,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow loan1 = new Borrow(1235,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow loan2 = new Borrow(1236,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow loan3 = new Borrow(1237,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow loan4 = new Borrow(1238,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            Borrow loan5 = new Borrow(1239,"mail@test","Pro","Amo","Le mythe de Sisyphe",date24HoursLater,0);
+            firstLoan.toBorrow();
+            SndLoan.toBorrow();
+            TrdLoan.toBorrow();
+            FrthLoan.toBorrow();
+            FivLoan.toBorrow();
+            SixLoan.toBorrow();
+            loan1.toBorrow();
+            loan2.toBorrow();
+            loan3.toBorrow();
+            loan4.toBorrow();
+            loan5.toBorrow();
  */
 public class Borrow {
+     private static final int MAX_BORROW_COUNT = 5;
+     private static final int MAX_BORROW_USER = 10;
+
     protected Integer ISBN;
     protected String mail;
     protected String name;
@@ -33,11 +56,97 @@ public class Borrow {
         // set to the actual date
         this.timeBorrowStart = new Date();
         this.timeBorrowEnd = timeBorrowEnd;
-        // set to true because the client just borrow it
+        // set to False because the client just borrow it and will not immediatly return it
         this.isReturn = Boolean.FALSE;
         this.nbDelays = nbDelays; // je sais pas encore si cette variable est utile (à mettre dans emprunt)
     }
 
+    // First Condition, all the copy of the books are already borrow.
+     public boolean isAlreadyBorrow() {
+         Connection co = null;
+         PreparedStatement pstmt = null;
+         ResultSet rs = null;
+
+         try {
+             co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+             // Verification that there is not enough books who have the same ISBN and aren't return
+             String countISBNQuery = "SELECT COUNT(*) FROM Borrow WHERE ISBN = ? AND isReturn = FALSE";
+             pstmt = co.prepareStatement(countISBNQuery);
+             pstmt.setInt(1, this.ISBN);
+             rs = pstmt.executeQuery();
+
+             if (rs.next()) {
+                 int count = rs.getInt(1);
+                 return count >= MAX_BORROW_COUNT; // Return True because there is at least one book to borrow
+             }
+
+         } catch (SQLException e) {
+             System.out.println("Error : " + e.getMessage());
+         } finally {
+             // cloturation of ressources
+             try {
+                 if (rs != null) {
+                     rs.close();
+                 }
+                 if (pstmt != null) {
+                     pstmt.close();
+                 }
+                 if (co != null) {
+                     co.close();
+                 }
+             } catch (SQLException e) {
+                 System.out.println("Error : " + e.getMessage());
+             }
+         }
+
+         return false; // if there are not any exception than return false
+     }
+
+     // Second Condition, the client has already borrow the maximum number of books.
+     public boolean hasBorrowTooManyTimes() {
+         Connection co = null;
+         PreparedStatement pstmt = null;
+         ResultSet rs = null;
+
+         try {
+             co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+             // Count the number of books currently borrow by the client
+             String countQuery = "SELECT COUNT(*) FROM Borrow WHERE mail = ? AND isReturn = FALSE";
+             pstmt = co.prepareStatement(countQuery);
+             pstmt.setString(1, this.mail);
+             rs = pstmt.executeQuery();
+
+             if (rs.next()) {
+                 int count = rs.getInt(1);
+                 return count >= MAX_BORROW_USER; // return True because the Client has not borrow the maximum number of book (10 in this case)
+             }
+
+         } catch (SQLException e) {
+             System.out.println("Error : " + e.getMessage());
+         } finally {
+             // cloturation of ressources
+             try {
+                 if (rs != null) {
+                     rs.close();
+                 }
+                 if (pstmt != null) {
+                     pstmt.close();
+                 }
+                 if (co != null) {
+                     co.close();
+                 }
+             } catch (SQLException e) {
+                 System.out.println("Error : " + e.getMessage());
+             }
+         }
+
+         return false; // if there are not any exception than return false
+     }
+
+
+     // methode to Borrow the "ticket" into the database
     public void toBorrow() {
         // create a new connection with a value of 0 to close it when the request has been sent
         Connection co = null;
@@ -45,10 +154,6 @@ public class Borrow {
             co = DriverManager.getConnection("jdbc:sqlite:database.db");
 
             Statement stmt = co.createStatement();
-
-            // this is only in purpose of a test
-            String dropTableSQL = "DROP TABLE IF EXISTS Borrow";
-            stmt.executeUpdate(dropTableSQL);
 
             // create the table if not exist
             String createTableSQL = "CREATE TABLE IF NOT EXISTS Borrow (" +
@@ -60,10 +165,20 @@ public class Borrow {
                     "timeBorrowStart TIMESTAMP, " +
                     "timeBorrowEnd TIMESTAMP, " +
                     "isReturn BOOLEAN, " +
-                    "nbDelays INTEGER, " +
+                    "nbDelays INTEGER " +
                     ")";
             stmt.execute(createTableSQL);
 
+            // FIRST CONDITION
+            if (isAlreadyBorrow()) {
+                System.out.println("Error: The ISBN is already borrowed (" + MAX_BORROW_COUNT + "). Unable to make a new borrow.");
+                return; // Cancel insertion
+            }
+            // SECOND CONDITION
+            if (hasBorrowTooManyTimes()) {
+                System.out.println("Error: The client has already borrowed " + MAX_BORROW_USER + " books. Unable to make a new borrow.");
+                return; // Cancel insertion
+            }
             // insert our new borrow ticket
             String insertSQL = "INSERT INTO Borrow (ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -89,7 +204,7 @@ public class Borrow {
 
         } catch (SQLException e) {
             // the exceptions adapt to sql
-            System.out.print(e.getMessage());
+            System.out.println("Error : " + e.getMessage());
         }
         // these next few lines is used to deconnect the driver
         try{
@@ -98,7 +213,7 @@ public class Borrow {
             }
         } catch (SQLException e) {
             // in case of cloturation error
-            e.printStackTrace();
+            System.out.println("Error : " + e.getMessage());
         }
     }
 }
