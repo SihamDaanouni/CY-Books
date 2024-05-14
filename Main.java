@@ -65,6 +65,7 @@ public class Main {
 
           else if (valeur==5){session=false;
                             exit(0);}
+          else if (valeur==3){laws.reset();}
 
 
             }
