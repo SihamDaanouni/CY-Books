@@ -271,6 +271,163 @@ public class Borrow {
          }
      }
 
+  /**
+     * deleteUser
+     *
+     * Delete the user from the database, and take back his borrowed books
+     *
+     * @param email The email adress of the client who will be deleted from the database.
+     * @return deleteUser doesn't return anything.
+     */
+
+    public void deleteUser(String email) {
+        // create a new connection with a value of 0 to close it when the request has been sent
+        Connection co = null;
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+
+            // looking for the client by his email to delete from the database
+            String deleteSQL = "DELETE FROM Client WHERE mail = ?";
+
+            //the client is deleted from the database
+            PreparedStatement pstmt = co.prepareStatement(deleteSQL);
+            pstmt.setString(1, email);
+
+
+            pstmt.executeUpdate();
+            System.out.println("The client has been deleted from the client database");
+
+        } catch (SQLException e) {
+            // the exceptions adapt to sql
+            System.out.print(e.getMessage());
+        }
+        // these next few lines is used to deconnect the driver
+        try{
+            if(co != null){
+                co.close();
+            }
+        } catch (SQLException e) {
+            // in case of cloturation error
+            e.printStackTrace();
+        }
+
+        // create a new connection with a value of 0 to close it when the request has been sent, to take back his books
+        co = null;
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+            // Update isReturn to 1 for the client with the given email
+            String updateSQL = "UPDATE Books SET isReturn = 1 WHERE mail = ?";
+            PreparedStatement updatePstmt = co.prepareStatement(updateSQL);
+            updatePstmt.setString(1, email);
+
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+        // these next few lines are used to disconnect the driver
+        try {
+            if (co != null) {
+                co.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+
+    }
+
+    /**
+     * lateBook
+     *
+     * Check if the client have delays on his borrows, and if there are 3 or more, the user is deleted from the database.
+     *
+     * @param email The email adress of the client who will be checked.
+     * @return lateBook doesn't return anything.
+     */
+
+    public void lateBook(String email) {
+        // create a new connection with a value of 0 to close it when the request has been sent
+        Connection co = null;
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+
+            // looking for the client by his email to count his delays
+            String lateSearch = "SELECT COUNT(*) AS count FROM Borrow " +
+                    "WHERE mail = (SELECT id FROM Client WHERE email = ?) AND nbDelay = 1";
+            //there is no delay variable in the database
+
+            PreparedStatement pstmt = co.prepareStatement(lateSearch);
+            pstmt.setString(1, email);
+
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+            int nbdelay=0;
+            //getting the delays
+            nbdelay = rs.getInt("count");
+            if(nbdelay==0){
+                //the client has no delays, nothing to do
+                System.out.println("The client has no delay");
+            }
+            else if (nbdelay>=3) {
+                //the client has 3 or more delays, he will be ban from the database and his boroowed books will be returned
+                System.out.println("The client has 3 or more delays, the client will be banned");
+                deleteUser(email);
+            }
+            else{
+                //had delays, showing a warning only
+                System.out.println("The client has delays on"+nbdelay+"books, don't forgot to return the books borrowed");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+        // these next few lines is used to deconnect the driver
+        try{
+            if(co != null){
+                co.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+    }
+
+    /**
+     * updateDelay
+     *
+     * Check if the borrowed books will be returned with delay. updateDelay has no parameters and no return value
+     */
+
+    public void updateDelay() {
+        // create a new connection with a value of 0 to close it when the request has been sent
+        Connection co = null;
+        try {
+            co = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+            // Update delay to 1 where dateTimeBorrowEnd is less than the current timestamp
+            String updateDelaySQL = "UPDATE Books SET nbDelay = 1 WHERE dateTimeBorrowEnd < CURRENT_TIMESTAMP";
+            PreparedStatement updateDelayPstmt = co.prepareStatement(updateDelaySQL);
+
+            int rowsUpdated = updateDelayPstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("The delay field has been updated for overdue clients");
+            } else {
+                System.out.println("No overdue clients found");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+        try {
+            if (co != null) {
+                co.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+
+    }
+
      // -------------------------------------------------------TEST-------------------------------------------//
      //public static void main(String[] args) {
      // test un the main
