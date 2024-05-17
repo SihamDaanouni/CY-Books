@@ -276,11 +276,11 @@ public class Borrow {
      *
      * Delete the user from the database, and take back his borrowed books
      *
-     * @param email The email adress of the client who will be deleted from the database.
+     * @param client The client who will be deleted from the database.
      * @return deleteUser doesn't return anything.
      */
 
-    public void deleteUser(String email) {
+    public void deleteUser(Client client) {
         // create a new connection with a value of 0 to close it when the request has been sent
         Connection co = null;
         try {
@@ -292,7 +292,7 @@ public class Borrow {
 
             //the client is deleted from the database
             PreparedStatement pstmt = co.prepareStatement(deleteSQL);
-            pstmt.setString(1, email);
+            pstmt.setString(1, client.getMail());
 
 
             pstmt.executeUpdate();
@@ -320,7 +320,7 @@ public class Borrow {
             // Update isReturn to 1 for the client with the given email
             String updateSQL = "UPDATE Books SET isReturn = 1 WHERE mail = ?";
             PreparedStatement updatePstmt = co.prepareStatement(updateSQL);
-            updatePstmt.setString(1, email);
+            updatePstmt.setString(1, client.getMail());
 
         } catch (SQLException e) {
             System.out.println("Error : " + e.getMessage());
@@ -341,11 +341,11 @@ public class Borrow {
      *
      * Check if the client have delays on his borrows, and if there are 3 or more, the user is deleted from the database.
      *
-     * @param email The email adress of the client who will be checked.
+     * @param client Tthe client who will be checked.
      * @return lateBook doesn't return anything.
      */
 
-    public void lateBook(String email) {
+    public void lateBook(Client client) {
         // create a new connection with a value of 0 to close it when the request has been sent
         Connection co = null;
         try {
@@ -354,11 +354,11 @@ public class Borrow {
 
             // looking for the client by his email to count his delays
             String lateSearch = "SELECT COUNT(*) AS count FROM Borrow " +
-                    "WHERE mail = (SELECT id FROM Client WHERE email = ?) AND nbDelay = 1";
+                    "WHERE mail = (SELECT id FROM Client WHERE mail = ?) AND nbDelay = 1";
             //there is no delay variable in the database
 
             PreparedStatement pstmt = co.prepareStatement(lateSearch);
-            pstmt.setString(1, email);
+            pstmt.setString(1, client.getMail());
 
             pstmt.executeUpdate();
             ResultSet rs = pstmt.executeQuery();
@@ -372,7 +372,7 @@ public class Borrow {
             else if (nbdelay>=3) {
                 //the client has 3 or more delays, he will be ban from the database and his boroowed books will be returned
                 System.out.println("The client has 3 or more delays, the client will be banned");
-                deleteUser(email);
+                deleteUser(client.getMail());
             }
             else{
                 //had delays, showing a warning only
