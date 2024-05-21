@@ -22,7 +22,6 @@ import java.sql.*;
 public class Scene2Controller {
     private Stage stage;
     private Scene scene;
-    private Parent root;
 
     @FXML
     private TextField mailField; // Pour la scène connexion
@@ -35,8 +34,8 @@ public class Scene2Controller {
         alert.setHeaderText(null);
         alert.setContentText("Veuillez contacter l'administrateur de la bibliothèque pour récupérer vos identifiants et vos mots de passe.");
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
-        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/com/example/cybook/warning.png")));
+        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
+        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/com/example/cybooks/warning.png")));
         imageView.setFitHeight(48);
         imageView.setFitWidth(48);
         alert.setGraphic(imageView);
@@ -84,7 +83,7 @@ public class Scene2Controller {
 
         if (checkCredentials(email, password)) {
             // Charger la scène suivante
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/cybook/Scene3.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/cybooks/Scene3.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -96,7 +95,7 @@ public class Scene2Controller {
             alert.setHeaderText(null);
             alert.setContentText("Email ou mot de passe incorrect. Veuillez réessayer.");
             Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
+            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
             alert.showAndWait();
         }
     }
