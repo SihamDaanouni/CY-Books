@@ -2,7 +2,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class DateAndTime extends Timestamp {
+public class DateAndTime {
     protected int day;
     protected int month;
     protected int year;
@@ -11,8 +11,8 @@ public class DateAndTime extends Timestamp {
     protected int second;
 
     // Constructor for the class DateTime
-    public DateAndTime(int day, int month, int year, int hour, int minute, int second , long time) {
-        super(time);
+    public DateAndTime(int day, int month, int year, int hour, int minute, int second ) {
+
         this.day = day;
         this.month = month;
         this.year = year;

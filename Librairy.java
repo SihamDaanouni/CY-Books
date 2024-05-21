@@ -2,6 +2,8 @@ import java.io.File;
 import java.sql.ResultSet;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Librairy extends User {
@@ -337,13 +339,17 @@ public class Librairy extends User {
     }
 
 
-    public void select(Client someone, book laws, Borrow manip) throws SQLException {
+    public void select(Client someone, book laws) throws SQLException {
+
+        DateAndTime t1 = new DateAndTime( 0 ,0,0,0 ,0,0);
+        String today=setTimeDate(t1);
+
         //
         //
         //
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter l'Isbn voulue");
-        int valeur = sc.nextInt();
+        String valeur = sc.nextLine();
 
 
         File myFile = new File("database");
@@ -353,13 +359,20 @@ public class Librairy extends User {
         Connection co = DriverManager.getConnection(chemin);
         Statement stmt = co.createStatement();
 
+
+        Borrow manip =new Borrow(0,"_","_","_","_",today,today);
+
+
         ResultSet res = stmt.executeQuery("SELECT * FROM Books");
+        String firstname = null;
         while (res.next()) {
             String isbn = res.getString("isbn");
             if (isbn.equals(valeur)) { // existe dans la table
                 //firstname, name, address, mail, phone)
+
+               
                 String mail = someone.getMail(); //
-                String firstname = someone.getFirstName();
+                firstname = someone.getFirstName();
                 String name = someone.getName();
                 String title = res.getString("titre");
 
@@ -370,11 +383,13 @@ public class Librairy extends User {
                 someone.setMail(mail);
                 someone.setPhone(phone);
                 someone.setConnected(true);
-
-                manip.toBorrow();
+               
 
             }
         }
+        co.close();
+
+        manip.toBorrow(name,firstname);
 
 
     }
@@ -459,7 +474,42 @@ public class Librairy extends User {
         pstmt.close();
         co.close();
     }
+    public String setTimeDate(DateAndTime t1){
+
+
+
+        LocalDate beta = LocalDate.now();
+        LocalTime ciera = LocalTime.now();
+
+        String take ;
+        String years = "";
+        String month= "";
+        String days = "";
+        String hours = "";
+        String minute = "";
+        String second= "";
+
+        take= beta.toString();
+        years = take.substring(0, 4);
+        month = take.substring(5, 7);
+        days = take.substring(8, 10);
+
+        take= ciera.toString();
+        hours = take.substring(0, 2);
+        minute = take.substring(3, 5);
+        second = take.substring(6, 8);
+
+
+
+        // days month years hours minutes seconde
+        t1.setDateTime(Integer.parseInt(days),Integer.parseInt(month),Integer.parseInt(years),Integer.parseInt(hours),Integer.parseInt(minute),Integer.parseInt(second));
+        System.out.println(t1.getDay());
+        return ""+ciera+beta;
+
+    }
 }
+
+
 
     //public crate
 // j'ai pas touché le code, juste des commentaires
