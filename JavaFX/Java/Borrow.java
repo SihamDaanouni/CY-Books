@@ -6,12 +6,14 @@ public class Borrow {
     private String name;
     private String firstname;
     private String title;
-    private String timeBorrowStart;
-    private String timeBorrowEnd;
-    private String isReturn;
+    private long timeBorrowStart;
+    private long timeBorrowEnd;
+    private boolean isReturn;
     private int nbDelays;
+    private String formattedBorrowStart;
+    private String formattedBorrowEnd;
 
-    public Borrow(String ISBN, String mail, String name, String firstname, String title, String timeBorrowStart, String timeBorrowEnd, String isReturn, int nbDelays) {
+    public Borrow(String ISBN, String mail, String name, String firstname, String title, long timeBorrowStart, long timeBorrowEnd, boolean isReturn, int nbDelays) {
         this.ISBN = ISBN;
         this.mail = mail;
         this.name = name;
@@ -23,14 +25,30 @@ public class Borrow {
         this.nbDelays = nbDelays;
     }
 
-    // Getters
+    public String getFormattedBorrowStart() {
+        return formattedBorrowStart;
+    }
+
+    public void setFormattedBorrowStart(String formattedBorrowStart) {
+        this.formattedBorrowStart = formattedBorrowStart;
+    }
+
+    public String getFormattedBorrowEnd() {
+        return formattedBorrowEnd;
+    }
+
+    public void setFormattedBorrowEnd(String formattedBorrowEnd) {
+        this.formattedBorrowEnd = formattedBorrowEnd;
+    }
+
+
     public String getISBN() { return ISBN; }
     public String getMail() { return mail; }
     public String getName() { return name; }
     public String getFirstname() { return firstname; }
     public String getTitle() { return title; }
-    public String getTimeBorrowStart() { return timeBorrowStart; }
-    public String getTimeBorrowEnd() { return timeBorrowEnd; }
-    public String getIsReturn() { return isReturn; }
+    public long getTimeBorrowStart() { return timeBorrowStart; }
+    public long getTimeBorrowEnd() { return timeBorrowEnd; }
+    public boolean getIsReturn() { return isReturn; }
     public int getNbDelays() { return nbDelays; }
 }
