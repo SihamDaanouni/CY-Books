@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene6Controller">
+    <children>
+        <TextField fx:id="searchField" layoutX="24.0" layoutY="14.0" prefHeight="26.0" prefWidth="200.0" promptText="Recherche" />
+        <Button fx:id="resetButton" layoutX="234.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleReset" text="Reset" />
+        <ComboBox fx:id="filterComboBox" layoutX="304.0" layoutY="14.0" onAction="#handleFilter" prefWidth="100.0" promptText="Filtres" />
+        <TextField fx:id="searchFieldBNF" layoutX="24.0" layoutY="50.0" prefHeight="26.0" prefWidth="200.0" promptText="Recherche BNF" />
+        <Button fx:id="searchBNFButton" layoutX="234.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleSearchBNF" text="Rechercher BNF" />
+        <Button fx:id="updateButton" layoutX="346.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleUpdateTable" text="Mettre à jour la table" />
+        <Button fx:id="retourButton" layoutX="414.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnMenue" text="Retour" />
+        <TableView fx:id="tableViewBooks" layoutX="24.0" layoutY="90.0" prefHeight="300.0" prefWidth="551.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colTitre" prefWidth="100.0" text="Titre" />
+                <TableColumn fx:id="colAuteur" prefWidth="100.0" text="Auteur" />
+                <TableColumn fx:id="colTheme" prefWidth="100.0" text="Thème" />
+                <TableColumn fx:id="colIsbn" prefWidth="100.0" text="ISBN" />
+                <TableColumn fx:id="colEditeur" prefWidth="100.0" text="Éditeur" />
+                <TableColumn fx:id="colLieu" prefWidth="100.0" text="Lieu" />
+                <TableColumn fx:id="colAnnee" prefWidth="100.0" text="Année" />
+                <TableColumn fx:id="colAction" prefWidth="100.0" text="Action" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
