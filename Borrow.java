@@ -42,13 +42,13 @@ public class Borrow {
     protected String name;
     protected String firstName;
     protected String title;
-    protected DateAndTime timeBorrowStart;
-    protected DateAndTime timeBorrowEnd;
+    protected String timeBorrowStart;
+    protected String timeBorrowEnd;
     protected Boolean isReturn;
     protected Integer nbDelays;
 
     // Constructor who get the information with research data
-    public Borrow(Integer ISBN, String mail, String name, String firstName, String title,DateAndTime timeBorrowStart ,DateAndTime timeBorrowEnd) {
+    public Borrow(Integer ISBN, String mail, String name, String firstName, String title,String timeBorrowStart ,String timeBorrowEnd) {
         this.ISBN = ISBN;
         this.mail = mail;
         // the next 3 parameters are used to make the list of borrow more readable without fetching new information from the database.
@@ -60,7 +60,7 @@ public class Borrow {
         this.timeBorrowEnd = timeBorrowEnd;
         // set to False because the client just borrow it and will not immediatly return it
         this.isReturn = Boolean.FALSE;
-        this.nbDelays = nbDelays; // je sais pas encore si cette variable est utile (à mettre dans emprunt)
+        this.nbDelays = 8; // je sais pas encore si cette variable est utile (à mettre dans emprunt)
     }
 
     // First Condition, all the copy of the books are already borrow.
@@ -157,10 +157,15 @@ public class Borrow {
 
 
      // methode to Borrow the "ticket" into the database
-    public void toBorrow() {
+    public void toBorrow(String dateTime , String dateTime2) throws SQLException {
+        dateTime = this.timeBorrowStart;
+
+
+
+
         // create a new connection with a value of 0 to close it when the request has been sent
         Connection co = null;
-        try {
+
             File myFile = new File("database");
             String chemin = "jdbc:sqlite:" + myFile.getAbsolutePath();
             chemin = chemin.substring(0, chemin.length() - 8);
@@ -176,8 +181,8 @@ public class Borrow {
                     "name VARCHAR(255), " +
                     "firstname VARCHAR(255), " +
                     "title VARCHAR(255), " +
-                    "timeBorrowStart TIMESTAMP, " +
-                    "timeBorrowEnd TIMESTAMP, " +
+                    "timeBorrowStart VARCHAR(255), " +
+                    "timeBorrowEnd VARCHAR(255)," +
                     "isReturn BOOLEAN, " +
                     "nbDelays INTEGER, " +
                     "PRIMARY KEY (ISBN, mail, timeBorrowStart), " +
@@ -196,6 +201,7 @@ public class Borrow {
                 System.out.println("Error: The client has already borrowed " + MAX_BORROW_USER + " books. Unable to make a new borrow.");
                 return; // Cancel insertion
             }
+
             // insert our new borrow ticket
             String insertSQL = "INSERT INTO Borrow (ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -208,8 +214,8 @@ public class Borrow {
             pstmt.setString(4, this.firstName);
             pstmt.setString(5, this.title);
             // these two below are convert into Timestamp in the database
-            pstmt.setTimestamp(6, this.timeBorrowStart);
-            pstmt.setTimestamp(7, this.timeBorrowEnd);
+            pstmt.setString(6, this.timeBorrowStart);
+            pstmt.setString(7, this.timeBorrowEnd);
             pstmt.setBoolean(8, this.isReturn);
             pstmt.setInt(9, this.nbDelays);
 
@@ -219,10 +225,8 @@ public class Borrow {
             System.out.println("Time Borrow Start: " + this.timeBorrowStart);
             System.out.println("Time Borrow End: " + this.timeBorrowEnd);
 
-        } catch (SQLException e) {
-            // the exceptions adapt to sql
-            System.out.println("Error : " + e.getMessage());
-        }
+
+
         // these next few lines is used to deconnect the driver
         try{
             if(co != null){
@@ -232,6 +236,8 @@ public class Borrow {
             // in case of cloturation error
             System.out.println("Error : " + e.getMessage());
         }
+
+
     }
 
      /**

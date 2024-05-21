@@ -6,6 +6,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -17,13 +20,26 @@ public class Main {
     public static void main(String[] args) throws SQLException, ParserConfigurationException, IOException, InterruptedException, SAXException {
 
 
+
+
+
+
+
+
+
+
+
+
+
         // declaration des objets de base
        Librairy actif = new Librairy("none", "none" ,"none" , "none", "none" );
        Client someone = new Client("_", "-" ,"_" , "_", "_" );
        book laws =new book("_","_","_","_","_","_","_");
-       DateAndTime today = new DateAndTime(0,0,0,0,0,0,0);
-       Borrow manip =new Borrow(0,"_","_","_","_",today,today);
+       DateAndTime today = new DateAndTime(0,0,0,0,0,0);
+
         //j'ai rajouté un attribut thème dans le books donc j'ai rajouté un underscore en plus
+
+
 
 
 
@@ -50,9 +66,6 @@ public class Main {
             System.out.println(actif.getName());
             System.out.println(actif.getFirstName());
             if(actif.getConnected()){activate=false;}
-
-
-
         }
 
 
@@ -95,7 +108,7 @@ public class Main {
               actif.updatePhone(someone);
           }
           else if (valeur==10) {
-              actif.select(someone,laws,manip);
+              actif.select(someone,laws);
 
           }
 
@@ -108,8 +121,8 @@ public class Main {
 
     }
     public static void test (book laws) throws SQLException, ParserConfigurationException, IOException, InterruptedException, SAXException {
-            laws.toString();
-            laws.recup();
+             //laws.toString();affiche les data du livre
+            // laws.recup();
             String search =  "Arkady Martine";
             laws.recherche(search);
             laws.toString();
