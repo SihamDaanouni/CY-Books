@@ -26,15 +26,16 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button layoutX="375.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleLogin" text="Se Connecter">
+        <Button layoutX="484.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleLogin" text="Se Connecter">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button layoutX="113.0" layoutY="332.0" mnemonicParsing="false" onAction="#oublieIdentifiant" text="Identifiant/Mot de Passe oublié ?">
+        <Button layoutX="202.0" layoutY="332.0" mnemonicParsing="false" onAction="#oublieIdentifiant" text="Identifiant/Mot de Passe oublié ?">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
     </children>
 </AnchorPane>
+
