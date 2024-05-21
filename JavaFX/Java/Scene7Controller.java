@@ -12,8 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Scene7Controller {
 
@@ -51,17 +55,15 @@ public class Scene7Controller {
     @FXML
     private TableColumn<Borrow, String> colDateEnd;
     @FXML
-    private TableColumn<Borrow, String> colIsReturn;
+    private TableColumn<Borrow, Boolean> colIsReturn;
     @FXML
     private TableColumn<Borrow, Integer> colNbDelays;
     @FXML
     private Button resetButton;
 
-    // 2 stack for the searchbar (one for the back and one to put in the tableView)
     private ObservableList<Borrow> masterData = FXCollections.observableArrayList();
     private ObservableList<Borrow> filteredData = FXCollections.observableArrayList();
 
-    // initialize the scene
     @FXML
     public void initialize() {
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstname"));
@@ -69,8 +71,8 @@ public class Scene7Controller {
         colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
         colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
-        colDateStart.setCellValueFactory(new PropertyValueFactory<>("timeBorrowStart"));
-        colDateEnd.setCellValueFactory(new PropertyValueFactory<>("timeBorrowEnd"));
+        colDateStart.setCellValueFactory(new PropertyValueFactory<>("formattedBorrowStart"));
+        colDateEnd.setCellValueFactory(new PropertyValueFactory<>("formattedBorrowEnd"));
         colIsReturn.setCellValueFactory(new PropertyValueFactory<>("isReturn"));
         colNbDelays.setCellValueFactory(new PropertyValueFactory<>("nbDelays"));
 
@@ -81,7 +83,7 @@ public class Scene7Controller {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterBorrows());
     }
 
-    // is used for the searchbar
+
     private void filterBorrows() {
         String searchText = searchField.getText().toLowerCase();
         filteredData.clear();
@@ -91,16 +93,15 @@ public class Scene7Controller {
                     borrow.getTitle().toLowerCase().contains(searchText) ||
                     borrow.getISBN().toLowerCase().contains(searchText) ||
                     borrow.getMail().toLowerCase().contains(searchText) ||
-                    borrow.getTimeBorrowStart().toLowerCase().contains(searchText) ||
-                    borrow.getTimeBorrowEnd().toLowerCase().contains(searchText) ||
-                    borrow.getIsReturn().toLowerCase().contains(searchText)) {
+                    convertLongToLocalDateString(borrow.getTimeBorrowStart()).toLowerCase().contains(searchText) ||
+                    convertLongToLocalDateString(borrow.getTimeBorrowEnd()).toLowerCase().contains(searchText) ||
+                    Boolean.toString(borrow.getIsReturn()).toLowerCase().contains(searchText)) {
                 filteredData.add(borrow);
             }
         }
         tableViewBorrows.setItems(filteredData);
     }
 
-    // take all the data from Borrow and put it in the tableView
     private void loadBorrow() {
         masterData.clear();
         Connection connection = null;
@@ -119,29 +120,30 @@ public class Scene7Controller {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM Borrow");
 
-            // Parcourir les résultats et ajouter les éléments à la liste
             while (resultSet.next()) {
                 String ISBN = resultSet.getString("ISBN");
                 String mail = resultSet.getString("mail");
                 String name = resultSet.getString("name");
                 String firstname = resultSet.getString("firstname");
                 String title = resultSet.getString("title");
-                String timeBorrowStart = resultSet.getString("timeBorrowStart");
-                String timeBorrowEnd = resultSet.getString("timeBorrowEnd");
-                String isReturn = resultSet.getString("isReturn");
+                long timeBorrowStart = resultSet.getLong("timeBorrowStart");
+                long timeBorrowEnd = resultSet.getLong("timeBorrowEnd");
+                boolean isReturn = resultSet.getBoolean("isReturn");
                 int nbDelays = resultSet.getInt("nbDelays");
                 Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays);
+
+                borrow.setFormattedBorrowStart(formatDateTime(timeBorrowStart));
+                borrow.setFormattedBorrowEnd(formatDateTime(timeBorrowEnd));
+
                 masterData.add(borrow);
             }
 
-            // Mettre à jour le TableView avec les données récupérées
             tableViewBorrows.setItems(masterData);
             filteredData.setAll(masterData);
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Fermer les ressources
             try {
                 if (resultSet != null) resultSet.close();
                 if (statement != null) statement.close();
@@ -152,10 +154,14 @@ public class Scene7Controller {
         }
     }
 
-    // button to show the people who are late (isReturn = false and dateEnd passed)
+
+    private String convertLongToLocalDateString(long millis) {
+        LocalDate date = LocalDate.ofInstant(new java.util.Date(millis).toInstant(), ZoneId.systemDefault());
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
     @FXML
     private void onLateButtonPressed() {
-        masterData.clear();
         ObservableList<Borrow> data = FXCollections.observableArrayList();
         Connection connection = null;
         Statement statement = null;
@@ -187,18 +193,16 @@ public class Scene7Controller {
                 String name = resultSet.getString("name");
                 String firstname = resultSet.getString("firstname");
                 String title = resultSet.getString("title");
-                String timeBorrowStart = resultSet.getString("timeBorrowStart");
-                String timeBorrowEnd = resultSet.getString("timeBorrowEnd");
-                String isReturn = resultSet.getString("isReturn");
+                long timeBorrowStart = resultSet.getLong("timeBorrowStart");
+                long timeBorrowEnd = resultSet.getLong("timeBorrowEnd");
+                boolean isReturn = resultSet.getBoolean("isReturn");
                 int nbDelays = resultSet.getInt("nbDelays");
                 Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays);
                 data.add(borrow);
-                masterData.add(borrow);
             }
 
             // Mettre à jour le TableView avec les données récupérées
-            tableViewBorrows.setItems(masterData);
-            filteredData.setAll(masterData);
+            tableViewBorrows.setItems(data);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,13 +218,11 @@ public class Scene7Controller {
         }
     }
 
-    // reload the borrow table to get back to it inital form
     @FXML
     private void onResetButtonPressed() {
         loadBorrow();
     }
 
-    // Button to return to Scene3
     public void returnMenue(ActionEvent back) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
         stage = (Stage) ((Node) back.getSource()).getScene().getWindow();
@@ -228,4 +230,10 @@ public class Scene7Controller {
         stage.setScene(scene);
         stage.show();
     }
+    private String formatDateTime(long millis) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(formatter);
+    }
+
 }
