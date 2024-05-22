@@ -2,10 +2,6 @@ package com.example.cybooks;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -20,13 +16,12 @@ import java.net.URL;
 import java.sql.*;
 
 public class Scene2Controller {
-    private Stage stage;
-    private Scene scene;
 
     @FXML
     private TextField mailField; // Pour la scène connexion
     @FXML
     private PasswordField passwordField; // Pour la scène connexion
+
     @FXML
     private void oublieIdentifiant() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -82,12 +77,8 @@ public class Scene2Controller {
         String password = passwordField.getText();
 
         if (checkCredentials(email, password)) {
-            // Charger la scène suivante
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/cybooks/Scene3.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            // Utiliser Main.switchScene pour charger la scène suivante en plein écran
+            Main.switchScene("/com/example/cybooks/Scene3.fxml");
         } else {
             // Afficher un message d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
