@@ -1,4 +1,4 @@
-package com.example.cybook;
+package com.example.cybooks;
 
 public class Borrow {
     private String ISBN;
@@ -9,11 +9,10 @@ public class Borrow {
     private long timeBorrowStart;
     private long timeBorrowEnd;
     private boolean isReturn;
-    private int nbDelays;
     private String formattedBorrowStart;
     private String formattedBorrowEnd;
 
-    public Borrow(String ISBN, String mail, String name, String firstname, String title, long timeBorrowStart, long timeBorrowEnd, boolean isReturn, int nbDelays) {
+    public Borrow(String ISBN, String mail, String name, String firstname, String title, long timeBorrowStart, long timeBorrowEnd, boolean isReturn) {
         this.ISBN = ISBN;
         this.mail = mail;
         this.name = name;
@@ -22,7 +21,6 @@ public class Borrow {
         this.timeBorrowStart = timeBorrowStart;
         this.timeBorrowEnd = timeBorrowEnd;
         this.isReturn = isReturn;
-        this.nbDelays = nbDelays;
     }
 
     public String getFormattedBorrowStart() {
@@ -49,6 +47,11 @@ public class Borrow {
     public String getTitle() { return title; }
     public long getTimeBorrowStart() { return timeBorrowStart; }
     public long getTimeBorrowEnd() { return timeBorrowEnd; }
-    public boolean getIsReturn() { return isReturn; }
-    public int getNbDelays() { return nbDelays; }
+    public boolean getIsReturn() {
+        return isReturn;
+    }
+
+    public void setIsReturn(boolean isReturn) {
+        this.isReturn = isReturn;
+    }
 }
