@@ -22,23 +22,12 @@ public class Borrow {
         this.timeBorrowEnd = timeBorrowEnd;
         this.isReturn = isReturn;
     }
-
-    public String getFormattedBorrowStart() {
-        return formattedBorrowStart;
-    }
-
     public void setFormattedBorrowStart(String formattedBorrowStart) {
         this.formattedBorrowStart = formattedBorrowStart;
     }
-
-    public String getFormattedBorrowEnd() {
-        return formattedBorrowEnd;
-    }
-
     public void setFormattedBorrowEnd(String formattedBorrowEnd) {
         this.formattedBorrowEnd = formattedBorrowEnd;
     }
-
 
     public String getISBN() { return ISBN; }
     public String getMail() { return mail; }
@@ -51,7 +40,4 @@ public class Borrow {
         return isReturn;
     }
 
-    public void setIsReturn(boolean isReturn) {
-        this.isReturn = isReturn;
-    }
 }
