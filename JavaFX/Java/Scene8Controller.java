@@ -4,22 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -35,12 +23,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executor;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 public class Scene8Controller {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @FXML
     private TableView<Book> tableViewBooks;
@@ -122,7 +114,6 @@ public class Scene8Controller {
             for (String isbn : isbnList) {
                 Book book = searchBNF(isbn);
                 if (book != null) {
-
                     books.add(book);
                 }
             }
@@ -143,11 +134,7 @@ public class Scene8Controller {
     }
 
     public void returnMenue(ActionEvent back) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
-        stage = (Stage) ((Node) back.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Main.switchScene("/com/example/cybooks/Scene3.fxml");
     }
 
     // BNF search
@@ -184,8 +171,6 @@ public class Scene8Controller {
 
                 String insertSQL = String.format("INSERT INTO Books (id, titre, auteur, theme, isbn, editeur, lieu, annee) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                         currentId++, title, author, theme, isbn, publisher, lieu, annee);
-                Executor statement;
-                //statement.execute(insertSQL);
                 System.out.println("Livre inséré: " + title + " par " + author);
 
                 return new Book(currentId - 1, title, author, theme, isbn, publisher, lieu, annee);
