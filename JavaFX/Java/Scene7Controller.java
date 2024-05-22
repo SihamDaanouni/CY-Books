@@ -1,4 +1,4 @@
-package com.example.cybook;
+package com.example.cybooks;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +23,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -74,7 +73,6 @@ public class Scene7Controller {
         colDateStart.setCellValueFactory(new PropertyValueFactory<>("formattedBorrowStart"));
         colDateEnd.setCellValueFactory(new PropertyValueFactory<>("formattedBorrowEnd"));
         colIsReturn.setCellValueFactory(new PropertyValueFactory<>("isReturn"));
-        colNbDelays.setCellValueFactory(new PropertyValueFactory<>("nbDelays"));
 
         loadBorrow();
 
@@ -82,7 +80,6 @@ public class Scene7Controller {
         resetButton.setOnAction(event -> onResetButtonPressed());
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterBorrows());
     }
-
 
     private void filterBorrows() {
         String searchText = searchField.getText().toLowerCase();
@@ -129,8 +126,7 @@ public class Scene7Controller {
                 long timeBorrowStart = resultSet.getLong("timeBorrowStart");
                 long timeBorrowEnd = resultSet.getLong("timeBorrowEnd");
                 boolean isReturn = resultSet.getBoolean("isReturn");
-                int nbDelays = resultSet.getInt("nbDelays");
-                Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays);
+                Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn);
 
                 borrow.setFormattedBorrowStart(formatDateTime(timeBorrowStart));
                 borrow.setFormattedBorrowEnd(formatDateTime(timeBorrowEnd));
@@ -154,10 +150,9 @@ public class Scene7Controller {
         }
     }
 
-
     private String convertLongToLocalDateString(long millis) {
-        LocalDate date = LocalDate.ofInstant(new java.util.Date(millis).toInstant(), ZoneId.systemDefault());
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
+        return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     @FXML
@@ -178,15 +173,12 @@ public class Scene7Controller {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
 
-            // Obtenir la date actuelle
-            LocalDate currentDate = LocalDate.now();
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            long currentTimeMillis = currentDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
-            // Requête pour obtenir les emprunts en retard
-            String query = "SELECT * FROM Borrow WHERE timeBorrowEnd < '" + currentDate.toString() + "' AND isReturn IS 'no'";
-
+            String query = "SELECT * FROM Borrow WHERE timeBorrowEnd < " + currentTimeMillis + " AND isReturn IS false";
             resultSet = statement.executeQuery(query);
 
-            // Parcourir les résultats et ajouter les éléments à la liste
             while (resultSet.next()) {
                 String ISBN = resultSet.getString("ISBN");
                 String mail = resultSet.getString("mail");
@@ -196,18 +188,19 @@ public class Scene7Controller {
                 long timeBorrowStart = resultSet.getLong("timeBorrowStart");
                 long timeBorrowEnd = resultSet.getLong("timeBorrowEnd");
                 boolean isReturn = resultSet.getBoolean("isReturn");
-                int nbDelays = resultSet.getInt("nbDelays");
-                Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn, nbDelays);
+                Borrow borrow = new Borrow(ISBN, mail, name, firstname, title, timeBorrowStart, timeBorrowEnd, isReturn);
+
+                borrow.setFormattedBorrowStart(formatDateTime(timeBorrowStart));
+                borrow.setFormattedBorrowEnd(formatDateTime(timeBorrowEnd));
+
                 data.add(borrow);
             }
 
-            // Mettre à jour le TableView avec les données récupérées
             tableViewBorrows.setItems(data);
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // Fermer les ressources
             try {
                 if (resultSet != null) resultSet.close();
                 if (statement != null) statement.close();
@@ -230,10 +223,10 @@ public class Scene7Controller {
         stage.setScene(scene);
         stage.show();
     }
+
     private String formatDateTime(long millis) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return dateTime.format(formatter);
     }
-
 }
