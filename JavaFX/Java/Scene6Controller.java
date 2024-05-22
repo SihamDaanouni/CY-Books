@@ -34,7 +34,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ResourceBundle;
 
 public class Scene6Controller {
 
@@ -305,38 +304,6 @@ public class Scene6Controller {
 
     public void returnMenue(ActionEvent back) throws IOException {
         Main.switchScene("/com/example/cybooks/Scene3.fxml");
-    }
-
-    private String getClientMail(String name, String firstName) {
-        try {
-            URL resource = getClass().getClassLoader().getResource("database");
-            if (resource == null) {
-                throw new IllegalArgumentException("Base de données non trouvée!");
-            }
-
-            File dbFile = new File(resource.toURI());
-            String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
-
-            try (Connection connection = DriverManager.getConnection(url);
-                 PreparedStatement statement = connection.prepareStatement("SELECT mail FROM Client WHERE name = ? AND firstName = ?")) {
-
-                statement.setString(1, name);
-                statement.setString(2, firstName);
-                ResultSet resultSet = statement.executeQuery();
-
-                if (resultSet.next()) {
-                    return resultSet.getString("mail");
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     @FXML
