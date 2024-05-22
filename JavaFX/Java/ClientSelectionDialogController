@@ -1,4 +1,4 @@
-package com.example.cybook;
+package com.example.cybooks;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,8 +108,77 @@ public class ClientSelectionDialogController {
             alert.setContentText("Veuillez remplir tous les champs requis.");
             alert.showAndWait();
         } else {
-            confirmed = true;
-            dialogStage.close();
+            LocalDateTime selectedDateTime = LocalDateTime.of(dateRetourPicker.getValue(), LocalTime.of(hourSpinner.getValue(), minuteSpinner.getValue()));
+            if (selectedDateTime.isBefore(LocalDateTime.now())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Validation Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("La date de retour ne peut pas être avant l'heure actuelle.");
+                alert.showAndWait();
+                return;
+            }
+
+            try {
+                URL resource = getClass().getClassLoader().getResource("database");
+                if (resource == null) {
+                    throw new IllegalArgumentException("Base de données non trouvée!");
+                }
+
+                File dbFile = new File(resource.toURI());
+                String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+                Connection connection = DriverManager.getConnection(url);
+
+                // Vérification du nombre de livres empruntés non retournés pour le client sélectionné
+                String selectedClient = clientListView.getSelectionModel().getSelectedItem();
+                String[] clientDetails = selectedClient.split(" ");
+                String clientMail = clientDetails[2];
+
+                String queryClientBorrows = "SELECT COUNT(*) FROM Borrow WHERE mail = ? AND isReturn = false";
+                PreparedStatement statementClientBorrows = connection.prepareStatement(queryClientBorrows);
+                statementClientBorrows.setString(1, clientMail);
+                ResultSet resultSetClientBorrows = statementClientBorrows.executeQuery();
+
+                if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= 5) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Validation Warning");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le client a déjà emprunté 5 œuvres. Veuillez retourner des œuvres avant d'emprunter à nouveau.");
+                    alert.showAndWait();
+                    resultSetClientBorrows.close();
+                    statementClientBorrows.close();
+                    connection.close();
+                    return;
+                }
+
+                // Vérification du nombre de copies empruntées non retournées pour le livre sélectionné
+                String queryBookCopies = "SELECT COUNT(*) FROM Borrow WHERE ISBN = ? AND isReturn = false";
+                PreparedStatement statementBookCopies = connection.prepareStatement(queryBookCopies);
+                statementBookCopies.setString(1, book.getIsbn());
+                ResultSet resultSetBookCopies = statementBookCopies.executeQuery();
+
+                if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= 5) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Validation Warning");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Le livre n'est pas disponible. Toutes les copies sont actuellement empruntées.");
+                    alert.showAndWait();
+                } else {
+                    confirmed = true;
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Succès");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("L'emprunt a été un succès.");
+                    successAlert.showAndWait();
+                    dialogStage.close();
+                }
+
+                resultSetBookCopies.close();
+                statementBookCopies.close();
+                connection.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
