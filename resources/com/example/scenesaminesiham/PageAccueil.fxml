@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scenesaminesiham.Controller">
+    <children>
+        <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <Button layoutX="240.0" layoutY="105.0" mnemonicParsing="false" onAction="#switchToClientConnecte" text="Connecter un client" />
+                <Button layoutX="241.0" layoutY="155.0" mnemonicParsing="false" text="Rechercher un livre" />
+                <Button layoutX="488.0" layoutY="361.0" mnemonicParsing="false" text="Se déconnecter" />
+                <Button layoutX="217.0" layoutY="262.0" mnemonicParsing="false" onAction="#switchToTop10" text="Top 10 des livres empruntés" />
+                <Button layoutX="213.0" layoutY="209.0" mnemonicParsing="false" onAction="#switchToEmprunts" text="Afficher la table des emprunts" />
+                <TextField layoutX="189.0" layoutY="-11.0" prefHeight="50.0" prefWidth="224.0" text="Page d'accueil">
+                    <font>
+                        <Font name="Arial Bold Italic" size="27.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
