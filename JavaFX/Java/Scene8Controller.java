@@ -1,4 +1,4 @@
-package com.example.cybooks;
+package com.example.cybook;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,7 +134,7 @@ public class Scene8Controller {
     }
 
     public void returnMenue(ActionEvent back) throws IOException {
-        Main.switchScene("/com/example/cybooks/Scene3.fxml");
+        Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
     // BNF search

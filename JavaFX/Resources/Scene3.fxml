@@ -5,15 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.Scene3Controller">
-   <children>
-      <Label text="Scene 3" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <Button mnemonicParsing="false" onAction="#switchToScene6" text="Faire une recherche de document" AnchorPane.topAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"/>
-      <Button mnemonicParsing="false" onAction="#switchToScene7" text="Voir les emprunts" AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"/>
-      <Button mnemonicParsing="false" onAction="#switchToScene8" text="TOP 10 des livres empruntés" AnchorPane.topAnchor="250.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"/>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene3Controller">
+    <children>
+        <Label layoutX="217.0" layoutY="64.0" text="Scene 3">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Label>
+        <Button layoutX="203.0" layoutY="230.0" mnemonicParsing="false" onAction="#switchToScene6" text="Faire une recherche de document" />
+        <Button layoutX="245.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchToScene7" text="Voir les emprunts" />
+        <Button layoutX="216.0" layoutY="335.0" mnemonicParsing="false" onAction="#switchToScene8" text="TOP 10 des livres empruntés" />
+      <Button layoutX="256.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToScene5" text="Espace Client" />
+    </children>
 </AnchorPane>

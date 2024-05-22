@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx/fxml/1" fx:controller="com.example.cybooks.Scene7Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx/fxml/1" fx:controller="com.example.cybook.Scene7Controller">
     <children>
         <TableView fx:id="tableViewBorrows" layoutX="17.0" layoutY="140.0" prefHeight="445.0" prefWidth="866.0" AnchorPane.topAnchor="140.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.bottomAnchor="17.0">
             <columns>

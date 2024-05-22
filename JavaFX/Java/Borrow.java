@@ -1,4 +1,4 @@
-package com.example.cybooks;
+package com.example.cybook;
 
 public class Borrow {
     private String ISBN;

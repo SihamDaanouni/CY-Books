@@ -1,4 +1,4 @@
-package com.example.cybooks;
+package com.example.cybook;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +29,8 @@ public class Scene2Controller {
         alert.setHeaderText(null);
         alert.setContentText("Veuillez contacter l'administrateur de la bibliothèque pour récupérer vos identifiants et vos mots de passe.");
         Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
-        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/com/example/cybooks/warning.png")));
+        alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
+        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/com/example/cybook/warning.png")));
         imageView.setFitHeight(48);
         imageView.setFitWidth(48);
         alert.setGraphic(imageView);
@@ -78,7 +78,7 @@ public class Scene2Controller {
 
         if (checkCredentials(email, password)) {
             // Utiliser Main.switchScene pour charger la scène suivante en plein écran
-            Main.switchScene("/com/example/cybooks/Scene3.fxml");
+            Main.switchScene("/com/example/cybook/PageAccueil.fxml");
         } else {
             // Afficher un message d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -86,7 +86,7 @@ public class Scene2Controller {
             alert.setHeaderText(null);
             alert.setContentText("Email ou mot de passe incorrect. Veuillez réessayer.");
             Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
+            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
             alert.showAndWait();
         }
     }

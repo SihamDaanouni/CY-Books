@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="323.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.ClientSelectionDialogController">
+<AnchorPane prefHeight="323.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.ClientSelectionDialogController">
     <children>
         <TextField fx:id="searchClientField" layoutY="14.0" prefHeight="26.0" prefWidth="357.0" promptText="Rechercher un client" />
         <ListView fx:id="clientListView" layoutY="40.0" prefHeight="119.0" prefWidth="358.0" visible="false" />

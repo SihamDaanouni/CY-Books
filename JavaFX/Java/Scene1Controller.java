@@ -1,4 +1,4 @@
-package com.example.cybooks;
+package com.example.cybook;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,6 @@ public class Scene1Controller {
 
     @FXML
     public void switchToConnexion(ActionEvent event) throws IOException {
-        Main.switchScene("/com/example/cybooks/Scene2.fxml");
+        Main.switchScene("/com/example/cybook/Scene2.fxml");
     }
 }
