@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class Scene8Controller {
     private Stage stage;
@@ -59,18 +60,19 @@ public class Scene8Controller {
     private TableColumn<Book, String> colLieu;
     @FXML
     private TableColumn<Book, String> colAnnee;
+    private int currentId = 1;
 
     @FXML
     public void initialize() {
         // Configurer les colonnes
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colAuteur.setCellValueFactory(new PropertyValueFactory<>("author"));
+        colTitre.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        colAuteur.setCellValueFactory(new PropertyValueFactory<>("auteur"));
         colTheme.setCellValueFactory(new PropertyValueFactory<>("theme"));
         colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-        colEditeur.setCellValueFactory(new PropertyValueFactory<>("publisher"));
-        colLieu.setCellValueFactory(new PropertyValueFactory<>("location"));
-        colAnnee.setCellValueFactory(new PropertyValueFactory<>("year"));
+        colEditeur.setCellValueFactory(new PropertyValueFactory<>("editeur"));
+        colLieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
+        colAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
 
         // Charger les données
         List<Book> books = bestBooksLastMonth();
@@ -120,6 +122,7 @@ public class Scene8Controller {
             for (String isbn : isbnList) {
                 Book book = searchBNF(isbn);
                 if (book != null) {
+
                     books.add(book);
                 }
             }
@@ -148,7 +151,7 @@ public class Scene8Controller {
     }
 
     // BNF search
-    private Book searchBNF(String isbn) throws IOException, InterruptedException, ParserConfigurationException, SAXException {
+    private Book searchBNF(String isbn) throws IOException, InterruptedException, ParserConfigurationException, SAXException, SQLException {
         String query = "bib.isbn any \"" + isbn + "\"";
         String queryfinal = URLEncoder.encode(query, StandardCharsets.UTF_8);
         String baseUri = "http://catalogue.bnf.fr/api/SRU";
@@ -179,7 +182,13 @@ public class Scene8Controller {
                 String lieu = getPublicationPlace(element).replace("'", " ");
                 String annee = getPublicationYear(element).replace("'", " ");
 
-                return new Book(0, title, author, theme, isbn, publisher, lieu, annee);
+                String insertSQL = String.format("INSERT INTO Books (id, titre, auteur, theme, isbn, editeur, lieu, annee) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                        currentId++, title, author, theme, isbn, publisher, lieu, annee);
+                Executor statement;
+                //statement.execute(insertSQL);
+                System.out.println("Livre inséré: " + title + " par " + author);
+
+                return new Book(currentId - 1, title, author, theme, isbn, publisher, lieu, annee);
             }
         } else {
             System.out.println("Failed to fetch data: HTTP Error " + response.statusCode());
