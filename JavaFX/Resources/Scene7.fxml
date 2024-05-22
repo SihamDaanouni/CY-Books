@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.Scene7Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx/fxml/1" fx:controller="com.example.cybooks.Scene7Controller">
     <children>
-        <TableView fx:id="tableViewBorrows" layoutX="17.0" layoutY="140.0" prefHeight="445.0" prefWidth="866.0">
+        <TableView fx:id="tableViewBorrows" layoutX="17.0" layoutY="140.0" prefHeight="445.0" prefWidth="866.0" AnchorPane.topAnchor="140.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.bottomAnchor="17.0">
             <columns>
-                <TableColumn fx:id="colFirstName" prefWidth="87.20001411437988" text="prénom" />
-                <TableColumn fx:id="colName" prefWidth="91.99996185302734" text="nom" />
-                <TableColumn fx:id="colTitle" prefWidth="127.99996948242188" text="titre livre" />
-                <TableColumn fx:id="colISBN" prefWidth="96.800048828125" text="ISBN" />
-                <TableColumn fx:id="colMail" prefWidth="139.20004272460938" text="mail" />
-                <TableColumn fx:id="colDateStart" prefWidth="138.4000244140625" text="date emprunt" />
-                <TableColumn fx:id="colDateEnd" prefWidth="111.199951171875" text="date à rendre" />
-                <TableColumn fx:id="colIsReturn" prefWidth="73.5999755859375" text="est rendu" />
+                <TableColumn fx:id="colFirstName" text="prénom" />
+                <TableColumn fx:id="colName" text="nom" />
+                <TableColumn fx:id="colTitle" text="titre livre" />
+                <TableColumn fx:id="colISBN" text="ISBN" />
+                <TableColumn fx:id="colMail" text="mail" />
+                <TableColumn fx:id="colDateStart" text="date emprunt" />
+                <TableColumn fx:id="colDateEnd" text="date à rendre" />
+                <TableColumn fx:id="colIsReturn" text="est rendu" />
             </columns>
         </TableView>
-        <Label layoutX="300.0" layoutY="14.0" text="Liste des emprunts">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Label>
-        <TextField fx:id="searchField" layoutX="17.0" layoutY="104.0" prefHeight="26.0" prefWidth="299.0" promptText="Recherche" />
-        <Button fx:id="lateButton" layoutX="755.0" layoutY="105.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Voir les retards" />
-        <Button fx:id="resetButton" layoutX="691.0" layoutY="106.0" mnemonicParsing="false" text="Reset" />
-        <Button fx:id="retourButton" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnMenue" text="Retour" />
+        <HBox layoutX="0.0" layoutY="14.0" prefWidth="884.0" alignment="CENTER" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label text="Liste des emprunts">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Label>
+        </HBox>
+        <TextField fx:id="searchField" layoutX="17.0" layoutY="104.0" prefHeight="26.0" prefWidth="299.0" promptText="Recherche" AnchorPane.topAnchor="104.0" AnchorPane.leftAnchor="17.0" />
+        <Button fx:id="lateButton" layoutX="755.0" layoutY="105.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" text="Voir les retards" AnchorPane.topAnchor="105.0" AnchorPane.rightAnchor="17.0"/>
+        <Button fx:id="resetButton" layoutX="691.0" layoutY="106.0" mnemonicParsing="false" text="Reset" AnchorPane.topAnchor="106.0" AnchorPane.rightAnchor="151.0" />
+        <Button fx:id="retourButton" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnMenue" text="Retour" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="17.0" />
     </children>
 </AnchorPane>
