@@ -1,4 +1,4 @@
-package com.example.cybook;
+package com.example.cybooks;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
