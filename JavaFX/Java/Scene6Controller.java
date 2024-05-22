@@ -6,7 +6,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,16 +27,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
-import java.time.LocalDate;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.ResourceBundle;
 
 public class Scene6Controller {
 
@@ -76,7 +73,7 @@ public class Scene6Controller {
     private ObservableList<Book> masterData = FXCollections.observableArrayList();
     private ObservableList<Book> filteredData = FXCollections.observableArrayList();
     private int currentId = 1;  // Variable pour gérer l'incrémentation des ID
-    private Task<Void> currentTask;//Tâche en cours
+    private Task<Void> currentTask; // Tâche en cours
 
     @FXML
     public void initialize() {
@@ -307,11 +304,7 @@ public class Scene6Controller {
     }
 
     public void returnMenue(ActionEvent back) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
-        stage = (Stage) ((Node) back.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Main.switchScene("/com/example/cybooks/Scene3.fxml");
     }
 
     private String getClientMail(String name, String firstName) {
@@ -447,7 +440,7 @@ public class Scene6Controller {
 
             System.out.println("Envoi de la requête à l'API BNF: " + requestUri);
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
                 System.out.println("Réponse reçue de l'API BNF");
