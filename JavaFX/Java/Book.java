@@ -1,4 +1,4 @@
-package com.example.cybook;
+package com.example.cybooks;
 
 public class Book {
     private int id;
