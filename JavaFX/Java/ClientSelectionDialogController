@@ -105,8 +105,6 @@ public class ClientSelectionDialogController {
     private void handleConfirm() {
         if (clientListView.getSelectionModel().isEmpty() || dateRetourPicker.getValue() == null || hourSpinner.getValue() == null || minuteSpinner.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-            alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
             alert.setTitle("Validation Warning");
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir tous les champs requis.");
@@ -115,8 +113,6 @@ public class ClientSelectionDialogController {
             LocalDateTime selectedDateTime = LocalDateTime.of(dateRetourPicker.getValue(), LocalTime.of(hourSpinner.getValue(), minuteSpinner.getValue()));
             if (selectedDateTime.isBefore(LocalDateTime.now())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-                alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
                 alert.setTitle("Validation Warning");
                 alert.setHeaderText(null);
                 alert.setContentText("La date de retour ne peut pas être avant l'heure actuelle.");
@@ -146,8 +142,6 @@ public class ClientSelectionDialogController {
 
                 if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= 5) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
                     alert.setContentText("Le client a déjà emprunté 5 œuvres. Veuillez retourner des œuvres avant d'emprunter à nouveau.");
@@ -166,8 +160,6 @@ public class ClientSelectionDialogController {
 
                 if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= 5) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
-                    alertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
                     alert.setContentText("Le livre n'est pas disponible. Toutes les copies sont actuellement empruntées.");
@@ -175,8 +167,6 @@ public class ClientSelectionDialogController {
                 } else {
                     confirmed = true;
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    Stage successAlertStage = (Stage) successAlert.getDialogPane().getScene().getWindow();
-                    successAlertStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybooks/logocy.png")));
                     successAlert.setTitle("Succès");
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("L'emprunt a été un succès.");
@@ -193,7 +183,6 @@ public class ClientSelectionDialogController {
             }
         }
     }
-
     @FXML
     private void handleCancel() {
         dialogStage.close();
