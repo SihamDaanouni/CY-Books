@@ -7,14 +7,14 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybooks.Scene1Controller">
     <children>
-        <Label alignment="CENTER" layoutY="74.0" prefHeight="74.0" prefWidth="614.0" text="CYBooks" textAlignment="CENTER">
+        <Label alignment="CENTER" text="CYBooks" textAlignment="CENTER" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <font>
                 <Font size="50.0" />
             </font>
         </Label>
-        <Button layoutX="251.0" layoutY="274.0" mnemonicParsing="false" onAction="#switchToConnexion" text="Démarrer">
+        <Button mnemonicParsing="false" onAction="#switchToConnexion" text="Démarrer" AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0">
             <font>
-                <Font size="20.0" />
+                <Font size="16.0" />
             </font>
         </Button>
     </children>
