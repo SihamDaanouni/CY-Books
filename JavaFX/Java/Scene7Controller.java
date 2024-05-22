@@ -4,16 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,10 +23,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class Scene7Controller {
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @FXML
     private Button lateButton;
@@ -217,11 +208,7 @@ public class Scene7Controller {
     }
 
     public void returnMenue(ActionEvent back) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Scene3.fxml"));
-        stage = (Stage) ((Node) back.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Main.switchScene("/com/example/cybooks/Scene3.fxml");
     }
 
     private String formatDateTime(long millis) {
