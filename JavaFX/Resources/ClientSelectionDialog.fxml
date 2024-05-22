@@ -18,3 +18,4 @@
         <Button fx:id="cancelButton" layoutX="285.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
     </children>
 </AnchorPane>
+ 
