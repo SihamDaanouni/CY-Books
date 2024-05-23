@@ -181,7 +181,63 @@ public class Emprunt1ClientController {
     }
 
     @FXML
-    private void showClientInfo(ActionEvent event) throws IOException {
-        // Logic to show client info
+    private void showClientInfo() {
+        try {
+            URL resource = getClass().getClassLoader().getResource("database");
+            if (resource == null) {
+                throw new IllegalArgumentException("Base de données non trouvée!");
+            }
+
+            File dbFile = new File(resource.toURI());
+            String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+
+            String sql = "SELECT * FROM Client WHERE mail = ?";
+
+            Connection conn = DriverManager.getConnection(url);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, userMail.getText());
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String nom = rs.getString("name");
+                String prenom = rs.getString("firstName");
+                String adresse = rs.getString("address");
+                String telephone = rs.getString("phone");
+                String email = rs.getString("mail");
+
+                conn.close();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("DataClient.fxml"));
+                Parent root = loader.load();
+
+                DataClientController controller = loader.getController();
+
+                controller.setClientData(nom, prenom, adresse, telephone, email);
+
+                Dialog<Void> dialog = new Dialog<>();
+                dialog.setTitle("Modifier les informations du client");
+                DialogPane dialogPane = new DialogPane();
+                dialogPane.setContent(root);
+                dialog.setDialogPane(dialogPane);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.showAndWait();
+                loadBorrows(email);
+            } else {
+                // Si aucun client n'est trouvé avec l'e-mail donné, affichez un message d'erreur
+                showAlert("Erreur", "Aucun client trouvé avec cet e-mail.");
+                conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
