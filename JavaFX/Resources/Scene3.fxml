@@ -15,6 +15,6 @@
         <Button layoutX="203.0" layoutY="230.0" mnemonicParsing="false" onAction="#switchToScene6" text="Faire une recherche de document" />
         <Button layoutX="245.0" layoutY="281.0" mnemonicParsing="false" onAction="#switchToScene7" text="Voir les emprunts" />
         <Button layoutX="216.0" layoutY="335.0" mnemonicParsing="false" onAction="#switchToScene8" text="TOP 10 des livres empruntés" />
-      <Button layoutX="256.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToScene5" text="Espace Client" />
+        <Button layoutX="256.0" layoutY="181.0" mnemonicParsing="false" onAction="#switchToScene5" text="Espace Client" />
     </children>
 </AnchorPane>
