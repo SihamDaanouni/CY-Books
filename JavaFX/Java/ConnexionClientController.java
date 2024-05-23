@@ -10,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,12 +40,11 @@ public class ConnexionClientController {
         return DriverManager.getConnection(url);
     }
 
-
     /**
      * checkCredentials : To verify the validity of the client email
      * @param email
      * @return true if the email has been recognized
-     *         False if not existant in the database
+     *         False if not existent in the database
      */
     private boolean checkCredentials(String email) {
         String sql = "SELECT * FROM Client WHERE mail = ? ";
@@ -57,19 +55,14 @@ public class ConnexionClientController {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return true; // The email adress has been found by the sql request
+                return true; // The email address has been found by the sql request
             }
         } catch (SQLException | URISyntaxException e) {
             e.printStackTrace(); // display more details about the SQL Exception
         }
-        return false; // the email adress doesn't exist in the database
+        return false; // the email address doesn't exist in the database
     }
 
-    /**
-     *
-     * @param event
-     * @throws IOException
-     */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
         String email = mailField.getText();
@@ -77,23 +70,9 @@ public class ConnexionClientController {
         if(email.isEmpty()){
             // the email field is empty
             showAlert("Erreur", "Veuillez indiquer le mail" );
-        }
-
-        else if (checkCredentials(email)) {
+        } else if (checkCredentials(email)) {
             // If the email is correct, pass to the next scene
-            String clientEmail = mailField.getText();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Emprunt.fxml"));
-            Parent root = loader.load();
-            Emprunt1ClientController emprunt = loader.getController();
-            emprunt.displayClientMail(clientEmail);
-
-            //root = FXMLLoader.load(getClass().getResource("/com/example/cybook/Emprunt.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setMaximized(true);
-            stage.setScene(scene);
-            stage.show();
-            //Main.switchScene("/com/example/cybook/Emprunt.fxml");
+            Main.switchScene("/com/example/cybook/Emprunt.fxml");
         } else {
             // Display an alert with error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -109,6 +88,7 @@ public class ConnexionClientController {
     public void switchToNouveauClient(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/NouveauClient.fxml");
     }
+
     public void switchToPageAccueil(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
@@ -126,6 +106,4 @@ public class ConnexionClientController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }
