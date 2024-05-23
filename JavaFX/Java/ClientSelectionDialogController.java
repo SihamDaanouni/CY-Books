@@ -40,6 +40,8 @@ public class ClientSelectionDialogController {
     @FXML
     public void initialize() {
         loadClients();
+
+        // Initialisation des spinners avec les valeurs par défaut
         SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12);
         SpinnerValueFactory<Integer> minuteValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0);
         hourSpinner.setValueFactory(hourValueFactory);
@@ -60,6 +62,7 @@ public class ClientSelectionDialogController {
             clientListView.setVisible(true);
         });
     }
+
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
         this.dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
