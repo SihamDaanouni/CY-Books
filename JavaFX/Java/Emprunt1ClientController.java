@@ -112,7 +112,7 @@ public class Emprunt1ClientController {
                         resultSet.getBoolean("isReturn")
                 );
                 borrow.setFormattedBorrowEnd(formatDateTime(resultSet.getLong("timeBorrowEnd")));
-                borrowList.add(borrow);
+                if(borrow.getIsReturn() == false) {borrowList.add(borrow);}
             }
             tableViewBorrow.setItems(borrowList);
 
