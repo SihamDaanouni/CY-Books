@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,11 +12,12 @@ import java.io.IOException;
 public class Main extends Application {
 
     private static Stage primaryStage;
+    private static FXMLLoader fxmlLoader;
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PageAccueil.fxml"));
+        fxmlLoader = new FXMLLoader(Main.class.getResource("PageAccueil.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Image icon = new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png"));
@@ -32,11 +32,15 @@ public class Main extends Application {
     }
 
     public static void switchScene(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml));
+        fxmlLoader = new FXMLLoader(Main.class.getResource(fxml));
         Parent root = fxmlLoader.load();
         primaryStage.getScene().setRoot(root);
         // Maintenir la fenêtre maximisée lorsque la scène est changée
         primaryStage.setMaximized(true);
+    }
+
+    public static Object getController() {
+        return fxmlLoader.getController();
     }
 
     public static void main(String[] args) {
