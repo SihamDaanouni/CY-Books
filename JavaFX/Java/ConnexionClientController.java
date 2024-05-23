@@ -81,7 +81,19 @@ public class ConnexionClientController {
 
         else if (checkCredentials(email)) {
             // If the email is correct, pass to the next scene
-            Main.switchScene("/com/example/cybook/Emprunt.fxml");
+            String clientEmail = mailField.getText();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Emprunt.fxml"));
+            Parent root = loader.load();
+            Emprunt1ClientController emprunt = loader.getController();
+            emprunt.displayClientMail(clientEmail);
+
+            //root = FXMLLoader.load(getClass().getResource("/com/example/cybook/Emprunt.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.show();
+            //Main.switchScene("/com/example/cybook/Emprunt.fxml");
         } else {
             // Display an alert with error message
             Alert alert = new Alert(Alert.AlertType.ERROR);

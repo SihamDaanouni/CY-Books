@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Scene1.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("PageAccueil.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Image icon = new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png"));
