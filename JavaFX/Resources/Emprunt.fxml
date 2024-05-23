@@ -5,31 +5,31 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Emprunt1ClientController">
     <children>
         <HBox alignment="CENTER" layoutY="20.0" prefHeight="50.0" prefWidth="1280.0">
-            <Label text="Emprunts">
+            <Label alignment="CENTER" text="Emprunts">
                 <font>
                     <Font name="Arial Bold Italic" size="27.0" />
                 </font>
             </Label>
         </HBox>
-        <TableView fx:id="tableViewBorrow" layoutY="70.0" prefHeight="539.0" prefWidth="1258.0" layoutX="14.0">
+        <TableView fx:id="tableViewBorrow" layoutX="15.2" layoutY="70.0" prefHeight="406.0" prefWidth="1250.0" AnchorPane.bottomAnchor="244.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="70.0">
             <columns>
                 <TableColumn fx:id="isbnColumn" prefWidth="159.19997882843018" text="ISBN" />
                 <TableColumn fx:id="nameColumn" prefWidth="191.19996643066406" text="Nom" />
                 <TableColumn fx:id="firstnameColumn" prefWidth="194.40005493164062" text="Prénom" />
-                <TableColumn fx:id="titleColumn" prefWidth="387.99993896484375" text="Titre" />
-                <TableColumn fx:id="timeBorrowEndColumn" minWidth="4.00006103515625" prefWidth="110.4000244140625" text="Fin d'emprunt" />
-                <TableColumn fx:id="isReturnColumn" prefWidth="112.800048828125" text="Retour" />
+                <TableColumn fx:id="titleColumn" prefWidth="309.59991455078125" text="Titre" />
+                <TableColumn fx:id="timeBorrowEndColumn" minWidth="4.00006103515625" prefWidth="184.0" text="Fin d'emprunt" />
+                <TableColumn fx:id="isReturnColumn" prefWidth="120.0" text="Retour" />
                 <TableColumn fx:id="rendreColumn" prefWidth="111.199951171875" text="Actions" /> <!-- Nouvelle colonne pour le bouton Rendre -->
             </columns>
         </TableView>
-        <Button layoutX="14.0" layoutY="618.0" mnemonicParsing="false" onAction="#showClientInfo" text="Changer les informations du client" />
-        <Button layoutX="950.0" layoutY="618.0" mnemonicParsing="false" onAction="#switchToPageAccueil" text="Retour" />
+        <Button layoutX="14.0" layoutY="631.0" mnemonicParsing="false" onAction="#showClientInfo" text="Changer les informations du client" />
+        <Button layoutX="1142.0" layoutY="631.0" mnemonicParsing="false" onAction="#switchToPageAccueil" text="Retour" />
         <Label layoutX="14.0" layoutY="687.0" text="Client : " />
         <Label fx:id="userMail" layoutX="60.0" layoutY="687.0" />
     </children>
