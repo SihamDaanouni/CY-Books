@@ -45,4 +45,7 @@ public class Controller {
     public void switchToTop10(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Scene8.fxml");
     }
+    public void deconnexion(ActionEvent event) throws IOException {
+        Main.switchScene("/com/example/cybook/Scene2.fxml");
+    }
 }
