@@ -169,6 +169,12 @@ public class Scene5Controller {
         }
         else if (!isEmailPresent(mail)) {
             // switch to main menu and register the client in the database
+            addUser(name,lastName,addressText,phoneNumber,mail);
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Succès");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("La création a été un succès.");
+            successAlert.showAndWait();
             Main.switchScene("/com/example/cybook/PageAccueil.fxml");
         } else {
             // the email is already in the database
