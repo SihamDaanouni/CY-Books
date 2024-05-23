@@ -63,4 +63,11 @@ public class Borrow {
         return isReturn;
     }
 
+    public String getFormattedBorrowStart() {
+        return formattedBorrowStart;
+    }
+
+    public String getFormattedBorrowEnd() {
+        return formattedBorrowEnd;
+    }
 }
