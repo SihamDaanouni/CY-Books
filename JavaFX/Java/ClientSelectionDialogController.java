@@ -18,6 +18,8 @@ import java.time.LocalTime;
 
 public class ClientSelectionDialogController {
 
+    final int MAXBORROW = 5;
+
     @FXML
     private ListView<String> clientListView;
     @FXML
@@ -143,7 +145,7 @@ public class ClientSelectionDialogController {
                 statementClientBorrows.setString(1, clientMail);
                 ResultSet resultSetClientBorrows = statementClientBorrows.executeQuery();
 
-                if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= 5) {
+                if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= MAXBORROW) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
@@ -161,7 +163,7 @@ public class ClientSelectionDialogController {
                 statementBookCopies.setString(1, book.getIsbn());
                 ResultSet resultSetBookCopies = statementBookCopies.executeQuery();
 
-                if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= 5) {
+                if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= MAXBORROW) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
