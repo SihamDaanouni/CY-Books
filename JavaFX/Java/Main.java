@@ -24,6 +24,10 @@ public class Main extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("CYBooks");
 
+        // Add the CSS file
+        String css = this.getClass().getResource("Cybook.css").toExternalForm();
+        scene.getStylesheets().add(css);
+
         // Ajuster la taille de la fenêtre pour qu'elle prenne tout l'écran sans être en plein écran
         primaryStage.setMaximized(true);
 
