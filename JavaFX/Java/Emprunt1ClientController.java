@@ -47,6 +47,7 @@ public class Emprunt1ClientController {
     @FXML
     private Label pageTitleLabel;
 
+    // initialize when the scene is generated
     @FXML
     public void initialize() {
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -56,6 +57,7 @@ public class Emprunt1ClientController {
         timeBorrowEndColumn.setCellValueFactory(new PropertyValueFactory<>("formattedBorrowEnd"));
         isReturnColumn.setCellValueFactory(new PropertyValueFactory<>("isReturn"));
         rendreColumn.setCellFactory(param -> new TableCell<>() {
+            // generate the return book button
             private final Button btn = new Button("Rendre");
 
             {
@@ -65,6 +67,7 @@ public class Emprunt1ClientController {
                 });
             }
 
+            // update the isReturn value in the Column
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -77,11 +80,14 @@ public class Emprunt1ClientController {
         });
     }
 
+    // set the email client and load all the borrow from the client
+    // loadBorrows() can't be possible in the initialize because he need the set of userMail before
     public void displayClientMail(String email) {
         userMail.setText(email);
         loadBorrows(email);
     }
 
+    // set all the borrow from the client
     private void loadBorrows(String email) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -132,12 +138,14 @@ public class Emprunt1ClientController {
         }
     }
 
+    // give the local date in the right format
     private String formatDateTime(long millis) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return dateTime.format(formatter);
     }
 
+    // update isReturn and the time when return of a borrow
     private void returnBook(Borrow borrow) {
         // Update the database to mark the book as returned
         Connection connection = null;
@@ -178,11 +186,13 @@ public class Emprunt1ClientController {
         }
     }
 
+    // switch scene to PageAccueil.fxml
     @FXML
-    private void switchToPageAccueil(ActionEvent event) throws IOException {
+    private void switchToHomePage(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
+    // show informations of the client then open the dialog for modify them
     @FXML
     private void showClientInfo() {
         try {
@@ -227,7 +237,7 @@ public class Emprunt1ClientController {
                 dialog.showAndWait();
                 loadBorrows(email);
             } else {
-                // Si aucun client n'est trouvé avec l'e-mail donné, affichez un message d'erreur
+                // if there is no Client associate with this email show error (mainly for flag)
                 showAlert("Erreur", "Aucun client trouvé avec cet e-mail.");
                 conn.close();
             }
@@ -236,6 +246,7 @@ public class Emprunt1ClientController {
         }
     }
 
+    // show an error message
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

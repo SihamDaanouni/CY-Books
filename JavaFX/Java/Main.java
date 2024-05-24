@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 
 public class Main extends Application {
@@ -14,27 +15,31 @@ public class Main extends Application {
     private static Stage primaryStage;
     private static FXMLLoader fxmlLoader;
 
+    // start function, set up the root
     @Override
     public void start(Stage stage) throws IOException {
+
+
         primaryStage = stage;
-        fxmlLoader = new FXMLLoader(Main.class.getResource("Scene1.fxml"));
+        fxmlLoader = new FXMLLoader(Main.class.getResource("Scene2.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Image icon = new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png"));
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("CYBooks");
 
-        // Add the CSS file
+        // add the CSS file
         String css = this.getClass().getResource("Cybook.css").toExternalForm();
         scene.getStylesheets().add(css);
 
-        // Ajuster la taille de la fenêtre pour qu'elle prenne tout l'écran sans être en plein écran
+        // adjust the windows size by fullscreen
         primaryStage.setMaximized(true);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    // the main function to switch scene
     public static void switchScene(String fxml) throws IOException {
         fxmlLoader = new FXMLLoader(Main.class.getResource(fxml));
         Parent root = fxmlLoader.load();
@@ -43,10 +48,14 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
     }
 
+    // get the controller
     public static Object getController() {
         return fxmlLoader.getController();
     }
 
+
+
+    // lunch the app with arguments
     public static void main(String[] args) {
         launch(args);
     }

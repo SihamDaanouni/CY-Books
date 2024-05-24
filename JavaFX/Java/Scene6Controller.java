@@ -71,9 +71,10 @@ public class Scene6Controller {
 
     private ObservableList<Book> masterData = FXCollections.observableArrayList();
     private ObservableList<Book> filteredData = FXCollections.observableArrayList();
-    private int currentId = 1;  // Variable pour gérer l'incrémentation des ID
-    private Task<Void> currentTask; // Tâche en cours
+    private int currentId = 1;  // var for incrementation of ID value
+    private Task<Void> currentTask; // list of the current task
 
+    // initialize when the scene is generated
     @FXML
     public void initialize() {
         filterComboBox.getItems().addAll("Titre", "Auteur", "Thème", "ISBN", "Éditeur", "Lieu", "Année");
@@ -86,6 +87,7 @@ public class Scene6Controller {
         colLieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
         colAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
         colAction.setCellFactory(param -> new TableCell<>() {
+            // set up the borrow button to select a book to borrow (then select a client and date)
             private final Button btn = new Button("Emprunter");
 
             {
@@ -111,6 +113,7 @@ public class Scene6Controller {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterBooks());
     }
 
+    // load all the book search by the API and stocked in Books to put them in a list then in the tableViews
     private void loadBooks() {
         Connection connection = null;
         Statement statement = null;
@@ -157,6 +160,7 @@ public class Scene6Controller {
         }
     }
 
+    // show the books who respect the different filters set (first searchbar)
     private void filterBooks() {
         String searchText = searchField.getText().toLowerCase();
         filteredData.clear();
@@ -173,6 +177,7 @@ public class Scene6Controller {
         }
     }
 
+    // Select only one filter to give a specific answer
     public void handleFilter(ActionEvent event) {
         String selectedFilter = filterComboBox.getSelectionModel().getSelectedItem();
         TextInputDialog dialog = new TextInputDialog();
@@ -224,12 +229,14 @@ public class Scene6Controller {
         });
     }
 
+    // reset the table with the right data (used after the API drop the actual Books table to full it with new books)
     public void handleReset(ActionEvent event) {
         searchField.clear();
         filteredData.clear();
         filteredData.addAll(masterData);
     }
 
+    // the dialog who show all the client possible to borrow the book and set the return date
     @FXML
     private void showClientSelectionDialog(Book book) {
         try {
@@ -263,6 +270,7 @@ public class Scene6Controller {
         }
     }
 
+    // insert the "borrow ticket" in the database
     private void insertBorrowRecord(Book book, String mail, String name, String firstName, LocalDateTime returnDate) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -302,16 +310,18 @@ public class Scene6Controller {
         }
     }
 
+    // switch scene to PageAccueil.fxml
     public void returnMenue(ActionEvent back) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
+    // searchbar for the BNF API request
     @FXML
     private void handleSearchBNF(ActionEvent event) {
         String searchQuery = searchFieldBNF.getText();
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             if (currentTask != null && currentTask.isRunning()) {
-                currentTask.cancel();  // Annuler la tâche en cours
+                currentTask.cancel();  // cancel the current task
                 System.out.println("Annulation de la recherche BNF en cours...");
             }
 
@@ -320,7 +330,7 @@ public class Scene6Controller {
                 currentTask = new Task<Void>() {
                     @Override
                     protected Void call() throws Exception {
-                        currentId = 1; // Reset the currentId to 1 for new search
+                        currentId = 1; // reset the currentId to 1 for new search
                         resetTable();
                         searchBNF(searchQuery);
                         return null;
@@ -338,14 +348,16 @@ public class Scene6Controller {
         }
     }
 
+    // Update the tableViews with the right books
     @FXML
     private void handleUpdateTable(ActionEvent event) {
         masterData.clear();
         filteredData.clear();
-        loadBooks(); // Recharge les livres après la recherche
+        loadBooks(); // reload the books after the new search request
         System.out.println("Table mise à jour");
     }
 
+    // reset the tableViews from all the filter set
     private void resetTable() throws SQLException, URISyntaxException {
         System.out.println("Réinitialisation de la table Books");
         URL resource = getClass().getClassLoader().getResource("database");
@@ -375,6 +387,7 @@ public class Scene6Controller {
         }
     }
 
+    // the API BNF search, with what is search in parameter
     private void searchBNF(String search) throws IOException, InterruptedException, ParserConfigurationException, SAXException, SQLException, URISyntaxException {
         String query = "bib.anywhere all \"" + search + "\"";
         String queryfinal = URLEncoder.encode(query, StandardCharsets.UTF_8);
@@ -453,7 +466,7 @@ public class Scene6Controller {
                                 statement.execute(insertSQL);
                                 System.out.println("Livre inséré: " + title + " par " + author);
 
-                                // Ajouter le livre à l'ObservableList et mettre à jour l'interface utilisateur
+                                // add the book in ObservableList and update the tableViews
                                 Book book = new Book(currentId - 1, title, author, theme, isbn, publisher, lieu, annee);
                                 javafx.application.Platform.runLater(() -> {
                                     masterData.add(book);
@@ -470,6 +483,7 @@ public class Scene6Controller {
         }
     }
 
+    // filter the xml file before send it to the database
     private static String getElementByTag(Element element, String tag, String code) {
         NodeList fields = element.getElementsByTagName("mxc:datafield");
         for (int i = 0; i < fields.getLength(); i++) {
@@ -487,6 +501,7 @@ public class Scene6Controller {
         return "Non trouvé";
     }
 
+    // get the Title from the XML API file
     private static String getTitle(Element element) {
         String[] tags = {"200", "245"};
         String title = "Non trouvé";
@@ -501,6 +516,7 @@ public class Scene6Controller {
         return title;
     }
 
+    // get the Autor from the XML API file
     private static String getAuthor(Element element) {
         String[] tags = {"700", "100"};
         String author = "Non trouvé";
@@ -515,6 +531,7 @@ public class Scene6Controller {
         return author;
     }
 
+    // get the Theme from the XML API file
     private static String getTheme(Element element) {
         String[] tags = {"600", "606", "607", "610"};
         String theme = "Non trouvé";
@@ -529,6 +546,7 @@ public class Scene6Controller {
         return theme;
     }
 
+    // get the Publisher from the XML API file
     private static String getPublisher(Element element) {
         String[] tags = {"210", "260"};
         String publisher = "Non trouvé";
@@ -543,6 +561,7 @@ public class Scene6Controller {
         return publisher;
     }
 
+    // get the Publication place from the XML API file
     private static String getPublicationPlace(Element element) {
         String[] tags = {"210", "260"};
         String publicationPlace = "Non trouvé";
@@ -557,6 +576,7 @@ public class Scene6Controller {
         return publicationPlace;
     }
 
+    // get the Publication year from the XML API file
     private static String getPublicationYear(Element element) {
         String[] tags = {"210", "260"};
         String publicationYear = "Non trouvé";

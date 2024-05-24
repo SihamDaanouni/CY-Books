@@ -71,7 +71,7 @@ public class Scene5Controller {
      *
      * @throws IOException
      */
-    public void switchToClientConnecte(ActionEvent event) throws IOException {
+    public void switchToConnectedClient(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/ConnexionClient.fxml");
     }
 
@@ -85,13 +85,13 @@ public class Scene5Controller {
         String sql = "SELECT * FROM Client WHERE mail = ?";
 
         try {
-            // Obtenir l'URL du fichier de base de données dans le répertoire resources
+            // get the url from resources
             URL resource = getClass().getClassLoader().getResource("database");
             if (resource == null) {
                 throw new IllegalArgumentException("Base de données non trouvée!");
             }
 
-            // Convertir l'URL en chemin de fichier
+            // convert the url to a path
             File dbFile = new File(resource.toURI());
             String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
 
@@ -121,13 +121,13 @@ public class Scene5Controller {
         String sql = "INSERT INTO Client (name, firstName, address, phone, mail) VALUES (?, ?, ?, ?, ?)";
 
         try {
-            // Obtenir l'URL du fichier de base de données dans le répertoire resources
+            // get the url from resources
             URL resource = getClass().getClassLoader().getResource("database");
             if (resource == null) {
                 throw new IllegalArgumentException("Base de données non trouvée!");
             }
 
-            // Convertir l'URL en chemin de fichier
+            // convert the url to a path
             File dbFile = new File(resource.toURI());
             String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
 
@@ -156,7 +156,7 @@ public class Scene5Controller {
      * @throws IOException
      */
     @FXML
-    private void clientCreation(ActionEvent event) throws IOException {
+    private void ClientCreation(ActionEvent event) throws IOException {
         String mail = email.getText();
         String lastName = nom.getText();
         String addressText = address.getText();
@@ -164,7 +164,7 @@ public class Scene5Controller {
         String phoneNumber = numtel.getText();
 
         if(mail.isEmpty() || lastName.isEmpty() || name.isEmpty() || phoneNumber.isEmpty() ){
-            //not all the informations are specified
+            // not all the information are specified
             showAlert("Erreur", "Un ou plusieurs champs sont vides. Veuillez renseigner tous les champs." );
         }
         else if (!isEmailPresent(mail)) {

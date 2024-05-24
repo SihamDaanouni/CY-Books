@@ -95,8 +95,18 @@ public class Borrow {
         this.formattedBorrowEnd = formattedBorrowEnd;
     }
 
-    // Constructors
-
+    /**
+     * Constructor for Borrow
+     *
+     * @param ISBN
+     * @param mail
+     * @param name
+     * @param firstname
+     * @param title
+     * @param timeBorrowStart
+     * @param timeBorrowEnd
+     * @param isReturn
+     */
     public Borrow(String ISBN, String mail, String name, String firstname, String title, long timeBorrowStart, long timeBorrowEnd, boolean isReturn) {
         this.ISBN = ISBN;
         this.mail = mail;

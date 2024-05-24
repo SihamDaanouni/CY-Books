@@ -10,6 +10,18 @@ public class Book {
     private String lieu;
     private String annee;
 
+    /**
+     * Constructor for Book
+     *
+     * @param id
+     * @param titre
+     * @param auteur
+     * @param theme
+     * @param isbn
+     * @param editeur
+     * @param lieu
+     * @param annee
+     */
     public Book(int id, String titre, String auteur, String theme, String isbn, String editeur, String lieu, String annee) {
         this.id = id;
         this.titre = titre;
@@ -20,35 +32,35 @@ public class Book {
         this.lieu = lieu;
         this.annee = annee;
     }
-
+    // getter Id
     public int getId() {
         return id;
     }
-
+    // getter Title
     public String getTitre() {
         return titre;
     }
-
+    // getter Author
     public String getAuteur() {
         return auteur;
     }
-
+    // getter Theme
     public String getTheme() {
         return theme;
     }
-
+    // get ISBN
     public String getIsbn() {
         return isbn;
     }
-
+    // get Editor
     public String getEditeur() {
         return editeur;
     }
-
+    // get Place
     public String getLieu() {
         return lieu;
     }
-
+    // get Year
     public String getAnnee() {
         return annee;
     }

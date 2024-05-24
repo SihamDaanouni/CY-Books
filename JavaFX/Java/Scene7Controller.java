@@ -54,6 +54,7 @@ public class Scene7Controller {
     private ObservableList<Borrow> masterData = FXCollections.observableArrayList();
     private ObservableList<Borrow> filteredData = FXCollections.observableArrayList();
 
+    // initialize when the scene is generated
     @FXML
     public void initialize() {
         colFirstName.setCellValueFactory(new PropertyValueFactory<>("firstname"));
@@ -72,6 +73,7 @@ public class Scene7Controller {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> filterBorrows());
     }
 
+    // filter the borrow with what is in the textField
     private void filterBorrows() {
         String searchText = searchField.getText().toLowerCase();
         filteredData.clear();
@@ -90,6 +92,7 @@ public class Scene7Controller {
         tableViewBorrows.setItems(filteredData);
     }
 
+    // load the borrow from the database and put them in the tableView with the masterData (then filteredData) list
     private void loadBorrow() {
         masterData.clear();
         Connection connection = null;
@@ -141,11 +144,13 @@ public class Scene7Controller {
         }
     }
 
+    // convert the date in the database (long) into a time in the right format for the TableViews
     private String convertLongToLocalDateString(long millis) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
+    // show all the borrow who have not return the book, when the return date is passed
     @FXML
     private void onLateButtonPressed() {
         ObservableList<Borrow> data = FXCollections.observableArrayList();
@@ -202,15 +207,18 @@ public class Scene7Controller {
         }
     }
 
+    // reset button to reload all the borrow with no filter on (either late filter, or manual searchbar filter)
     @FXML
     private void onResetButtonPressed() {
         loadBorrow();
     }
 
+    // switch scene to PageAccueil.fxml
     public void returnMenue(ActionEvent back) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
+    // get the local date and time
     private String formatDateTime(long millis) {
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

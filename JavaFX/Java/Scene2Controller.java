@@ -18,12 +18,13 @@ import java.sql.*;
 public class Scene2Controller {
 
     @FXML
-    private TextField mailField; // Pour la scène connexion
+    private TextField mailField; // for the connexion scene
     @FXML
-    private PasswordField passwordField; // Pour la scène connexion
+    private PasswordField passwordField; // for the connexion scene
 
+    // button when show a dialog if the user lost his password or email name
     @FXML
-    private void oublieIdentifiant() {
+    private void forgotId() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Identifiant ou mot de passe oublié");
         alert.setHeaderText(null);
@@ -37,22 +38,22 @@ public class Scene2Controller {
         alert.showAndWait();
     }
 
-    // Méthode de connexion à la base de données
+    // is used to be connected to the database
     private Connection connect() throws SQLException, URISyntaxException {
-        // Obtenir l'URL du fichier de base de données dans le répertoire resources
+        // get the url of the database
         URL resource = getClass().getClassLoader().getResource("database");
         if (resource == null) {
             throw new IllegalArgumentException("Base de données non trouvée!");
         }
 
-        // Convertir l'URL en chemin de fichier
+        // convert the url to a path
         File dbFile = new File(resource.toURI());
 
         String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
         return DriverManager.getConnection(url);
     }
 
-    // Méthode pour vérifier les identifiants
+    // verify the information with the one in the database
     private boolean checkCredentials(String email, String password) {
         String sql = "SELECT * FROM library WHERE mail = ? AND mot_de_passe = ?";
 
@@ -63,24 +64,25 @@ public class Scene2Controller {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return true; // Les identifiants sont corrects
+                return true; // is correct
             }
         } catch (SQLException | URISyntaxException e) {
-            e.printStackTrace(); // Pour afficher les détails de l'erreur SQL
+            e.printStackTrace(); // show the url error
         }
-        return false; // Les identifiants sont incorrects
+        return false; // is incorrect
     }
 
+    // get the information in the TextField and test them with the one in the database, if correct access to the next scene
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
         String email = mailField.getText();
         String password = passwordField.getText();
 
         if (checkCredentials(email, password)) {
-            // Utiliser Main.switchScene pour charger la scène suivante en plein écran
+            // switch scene to PageAccueil.fxml
             Main.switchScene("/com/example/cybook/PageAccueil.fxml");
         } else {
-            // Afficher un message d'erreur
+            // show error message
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de connexion");
             alert.setHeaderText(null);

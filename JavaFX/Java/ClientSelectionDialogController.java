@@ -18,8 +18,6 @@ import java.time.LocalTime;
 
 public class ClientSelectionDialogController {
 
-    final int MAXBORROW = 5;
-
     @FXML
     private ListView<String> clientListView;
     @FXML
@@ -34,11 +32,11 @@ public class ClientSelectionDialogController {
     private Stage dialogStage;
     private Book book;
     private boolean confirmed = false;
-
+    // List to show the clients
     private ObservableList<String> clientList = FXCollections.observableArrayList();
     private FilteredList<String> filteredClients;
 
-
+    // initialize when the scene is generated
     @FXML
     public void initialize() {
         loadClients();
@@ -65,19 +63,23 @@ public class ClientSelectionDialogController {
         });
     }
 
+    // set up the dialog scene like a pop-up
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
         this.dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cybook/logocy.png")));
     }
 
+    // setter for book
     public void setBook(Book book) {
         this.book = book;
     }
 
+    // return confirmed
     public boolean isConfirmed() {
         return confirmed;
     }
 
+    // search in the database all the clients, used to choose the one who will borrow the book selected
     private void loadClients() {
         try {
             URL resource = getClass().getClassLoader().getResource("database");
@@ -106,6 +108,7 @@ public class ClientSelectionDialogController {
         }
     }
 
+    // for save the borrow and verify if all the value have been set, who and when
     @FXML
     private void handleConfirm() {
         if (clientListView.getSelectionModel().isEmpty() || dateRetourPicker.getValue() == null || hourSpinner.getValue() == null || minuteSpinner.getValue() == null) {
@@ -135,7 +138,7 @@ public class ClientSelectionDialogController {
                 String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
                 Connection connection = DriverManager.getConnection(url);
 
-                // Vérification du nombre de livres empruntés non retournés pour le client sélectionné
+                // check how many book the client had already borrow
                 String selectedClient = clientListView.getSelectionModel().getSelectedItem();
                 String[] clientDetails = selectedClient.split(" ");
                 String clientMail = clientDetails[2];
@@ -145,7 +148,8 @@ public class ClientSelectionDialogController {
                 statementClientBorrows.setString(1, clientMail);
                 ResultSet resultSetClientBorrows = statementClientBorrows.executeQuery();
 
-                if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= MAXBORROW) {
+                if (resultSetClientBorrows.next() && resultSetClientBorrows.getInt(1) >= 5) {
+                    // warning the client already borrow too many books
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
@@ -157,19 +161,21 @@ public class ClientSelectionDialogController {
                     return;
                 }
 
-                // Vérification du nombre de copies empruntées non retournées pour le livre sélectionné
+                // check how many borrowed copies not returned for the book
                 String queryBookCopies = "SELECT COUNT(*) FROM Borrow WHERE ISBN = ? AND isReturn = false";
                 PreparedStatement statementBookCopies = connection.prepareStatement(queryBookCopies);
                 statementBookCopies.setString(1, book.getIsbn());
                 ResultSet resultSetBookCopies = statementBookCopies.executeQuery();
 
-                if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= MAXBORROW) {
+                if (resultSetBookCopies.next() && resultSetBookCopies.getInt(1) >= 5) {
+                    // warning all the book have been borrowed
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Validation Warning");
                     alert.setHeaderText(null);
                     alert.setContentText("Le livre n'est pas disponible. Toutes les copies sont actuellement empruntées.");
                     alert.showAndWait();
                 } else {
+                    // confirmation
                     confirmed = true;
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle("Succès");
@@ -178,7 +184,7 @@ public class ClientSelectionDialogController {
                     successAlert.showAndWait();
                     dialogStage.close();
                 }
-
+                // close the driver
                 resultSetBookCopies.close();
                 statementBookCopies.close();
                 connection.close();
@@ -188,15 +194,18 @@ public class ClientSelectionDialogController {
             }
         }
     }
+    // cancel the dialog scene
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
+    // select the client
     public String getSelectedClient() {
         return clientListView.getSelectionModel().getSelectedItem();
     }
 
+    // get the time when used
     public LocalDateTime getReturnDate() {
         return LocalDateTime.of(dateRetourPicker.getValue(), LocalTime.of(hourSpinner.getValue(), minuteSpinner.getValue()));
     }

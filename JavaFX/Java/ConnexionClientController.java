@@ -16,6 +16,7 @@ public class ConnexionClientController {
     @FXML
     private TextField mailField;
 
+    // verify if the mail exist and then set the label with the mail for the next scene with the mail that you put
     @FXML
     private void handleLogin(ActionEvent event) throws IOException, URISyntaxException {
         String email = mailField.getText();
@@ -29,6 +30,7 @@ public class ConnexionClientController {
         }
     }
 
+    // verify in the database if the email in parameter exist
     private boolean isClientExists(String email) throws URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("database");
         if (resource == null) {
@@ -53,16 +55,19 @@ public class ConnexionClientController {
         }
     }
 
+    // switch scene to NouveauClient.fxml
     @FXML
-    private void switchToNouveauClient(ActionEvent event) throws IOException {
+    private void switchToNewClients(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/NouveauClient.fxml");
     }
 
+    // switch scene to PageAccueil.fxml
     @FXML
-    private void switchToPageAccueil(ActionEvent event) throws IOException {
+    private void switchToHomePage(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
+    // show an alert message
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

@@ -15,37 +15,47 @@ public class Controller {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    /*
     public void switchToPageAccueil(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
+    */
+
+    // switch scene to Scene6.fxml
     public void switchToScene6(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Scene6.fxml");
     }
+    /*
     public void switchToNouveauClient(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/NouveauClient.fxml");
     }
+    */
 
-    public void switchToClientConnecte(ActionEvent event) throws IOException {
+    // switch scene to ConnexionClient.fxml
+    public void switchToConnectedClients(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/ConnexionClient.fxml");
     }
 
     // We have to ADD : verify that the client exists already in the database
-
+    /*
     public void switchToEmprunt1Client(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Emprunt.fxml");
     }
+     */
 
-
-    public void switchToEmprunts(ActionEvent event) throws IOException {
+    // switch scene to Scene7.fxml
+    public void switchToBorrow(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Scene7.fxml");
     }
 
 
+    // switch scene to Scene8.fxml
     public void switchToTop10(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Scene8.fxml");
     }
-    public void deconnexion(ActionEvent event) throws IOException {
+
+    // switch scene to Scene2.fxml
+    public void disconnect(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/Scene2.fxml");
     }
 }

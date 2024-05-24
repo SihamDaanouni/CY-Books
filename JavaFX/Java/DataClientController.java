@@ -53,6 +53,7 @@ public class DataClientController {
         emailField.setText(email);
     }
 
+    // update the database with updateClientData(); with the data set in the different textField
     @FXML
     private void handleSave() throws URISyntaxException {
         // Recuperate the new data
@@ -63,7 +64,7 @@ public class DataClientController {
 
         updateClientData(newName, newFirstName, newAddress, newPhone, getEmail());
 
-        // Close the dialogField after updating the data
+        // close the dialogField after updating the data
         Stage stage = (Stage) nameField.getScene().getWindow();
         stage.close();
     }
@@ -118,7 +119,7 @@ public class DataClientController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
-            // Fermer la connexion après l'exécution de la requête
+            // close the driver connection
             try {
                 if (conn != null) {
                     conn.close();
@@ -129,6 +130,7 @@ public class DataClientController {
         }
     }
 
+    // connection to the driver
     private Connection connect(String url) {
         Connection conn = null;
         try {

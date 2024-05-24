@@ -54,6 +54,7 @@ public class Scene8Controller {
     private TableColumn<Book, String> colAnnee;
     private int currentId = 1;
 
+    // initialize when the scene is generated
     @FXML
     public void initialize() {
         // Configurer les colonnes
@@ -72,6 +73,7 @@ public class Scene8Controller {
         tableViewBooks.setItems(observableBooks);
     }
 
+    // make
     public List<Book> bestBooksLastMonth() {
         List<Book> books = new ArrayList<>();
         Connection co = null;
@@ -86,12 +88,12 @@ public class Scene8Controller {
 
             co = DriverManager.getConnection(url);
 
-            // Récupérer la date d'il y a un mois
+            // get the date from 1 month ago
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
             Date oneMonthAgo = cal.getTime();
 
-            // Requête SQL pour sélectionner les ISBN les plus empruntés durant le dernier mois
+            // make SQL request to get all the ISBN from the 10 most borrow books between one month ago and today
             String selectSQL = "SELECT ISBN, COUNT(*) AS borrowCount " +
                     "FROM Borrow " +
                     "WHERE timeBorrowStart >= ? " +
@@ -103,14 +105,14 @@ public class Scene8Controller {
             pstmt.setTimestamp(1, new Timestamp(oneMonthAgo.getTime()));
             ResultSet rs = pstmt.executeQuery();
 
-            // Construire la liste des ISBN
+            // build a list of the top 10 ISBN
             List<String> isbnList = new ArrayList<>();
             while (rs.next()) {
                 String isbn = rs.getString("ISBN");
                 isbnList.add(isbn);
             }
 
-            // Pour chaque ISBN, appeler l'API BNF pour obtenir les détails du livre
+            // for each ISBN get all the info using the BNF API
             for (String isbn : isbnList) {
                 Book book = searchBNF(isbn);
                 if (book != null) {
@@ -121,7 +123,7 @@ public class Scene8Controller {
         } catch (SQLException | URISyntaxException | IOException | InterruptedException | ParserConfigurationException | SAXException e) {
             System.out.println(e.getMessage());
         } finally {
-            // Déconnexion
+            // deconected
             try {
                 if (co != null) {
                     co.close();
@@ -133,11 +135,12 @@ public class Scene8Controller {
         return books;
     }
 
+    // switch scene to PageAccueil.fxml
     public void returnMenue(ActionEvent back) throws IOException {
         Main.switchScene("/com/example/cybook/PageAccueil.fxml");
     }
 
-    // BNF search
+    // the BNF search like in the Scene6
     private Book searchBNF(String isbn) throws IOException, InterruptedException, ParserConfigurationException, SAXException, SQLException {
         String query = "bib.isbn any \"" + isbn + "\"";
         String queryfinal = URLEncoder.encode(query, StandardCharsets.UTF_8);
@@ -182,6 +185,7 @@ public class Scene8Controller {
         return null;
     }
 
+    // filter the xml file before send it to the database
     private static String getElementByTag(Element element, String tag, String code) {
         NodeList fields = element.getElementsByTagName("mxc:datafield");
         for (int i = 0; i < fields.getLength(); i++) {
@@ -199,6 +203,7 @@ public class Scene8Controller {
         return "Non trouvé";
     }
 
+    // get the Title from the XML API file
     private static String getTitle(Element element) {
         String[] tags = {"200", "245"};
         String title = "Non trouvé";
@@ -213,6 +218,7 @@ public class Scene8Controller {
         return title;
     }
 
+    // get the Author from the XML API file
     private static String getAuthor(Element element) {
         String[] tags = {"700", "100"};
         String author = "Non trouvé";
@@ -227,6 +233,7 @@ public class Scene8Controller {
         return author;
     }
 
+    // get the Theme from the XML API file
     private static String getTheme(Element element) {
         String[] tags = {"600", "606", "607", "610"};
         String theme = "Non trouvé";
@@ -241,6 +248,7 @@ public class Scene8Controller {
         return theme;
     }
 
+    // get the Publisher from the XML API file
     private static String getPublisher(Element element) {
         String[] tags = {"210", "260"};
         String publisher = "Non trouvé";
@@ -255,6 +263,7 @@ public class Scene8Controller {
         return publisher;
     }
 
+    // get the Publication place from the XML API file
     private static String getPublicationPlace(Element element) {
         String[] tags = {"210", "260"};
         String publicationPlace = "Non trouvé";
@@ -269,6 +278,7 @@ public class Scene8Controller {
         return publicationPlace;
     }
 
+    // get the Publication year from the XML API file
     private static String getPublicationYear(Element element) {
         String[] tags = {"210", "260"};
         String publicationYear = "Non trouvé";
