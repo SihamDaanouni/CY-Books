@@ -30,10 +30,10 @@
                 <TextField fx:id="numtel" promptText="Numéro de téléphone" />
             </HBox>
             <!-- Button to create a client -->
-            <Button mnemonicParsing="false" onAction="#clientCreation" prefHeight="44.0" prefWidth="99.0" text="Créer client" />
+            <Button mnemonicParsing="false" onAction="#ClientCreation" prefHeight="44.0" prefWidth="99.0" text="Créer client" />
         </VBox>
 
         <!-- Retour Button -->
-        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToClientConnecte" text="Retour" />
+        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToConnectedClient" text="Retour" />
     </children>
 </AnchorPane>

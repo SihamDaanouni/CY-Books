@@ -5,33 +5,50 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene2Controller">
     <children>
-        <Label alignment="CENTER" text="Veuillez vous connecter avec vos identifiants" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Label>
-        <Label text="Mail" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="150.0">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </Label>
-        <TextField fx:id="mailField" promptText="Mail de la BU" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0" />
-        <Label text="Mot de passe :" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="200.0">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </Label>
-        <PasswordField fx:id="passwordField" promptText="Mot de passe" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="200.0" />
-        <Button mnemonicParsing="false" onAction="#handleLogin" text="Se Connecter" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="250.0">
+        <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Rectangle fill="white" height="50.0" width="600.0" />
+                <Label alignment="CENTER" blendMode="SRC_ATOP" text="Veuillez vous connecter avec vos identifiants">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </StackPane>
+        <StackPane layoutX="150.0" layoutY="148.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="148.0">
+            <children>
+                <Rectangle fill="white" height="30.0" width="100.0" />
+                <Label text="Mail">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </StackPane>
+        <TextField fx:id="mailField" promptText="Mail de la BU" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0" />
+        <StackPane layoutX="146.0" layoutY="197.0" AnchorPane.leftAnchor="146.0" AnchorPane.topAnchor="197.0">
+            <children>
+                <Rectangle fill="white" height="30.0" width="108.0" />
+                <Label text="Mot de passe :">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </StackPane>
+        <PasswordField fx:id="passwordField" promptText="Mot de passe" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="200.0" />
+        <Button mnemonicParsing="false" onAction="#handleLogin" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Se Connecter" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="250.0">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
-        <Button mnemonicParsing="false" onAction="#oublieIdentifiant" text="Identifiant/Mot de Passe oublié ?" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="300.0">
+        <Button mnemonicParsing="false" onAction="#forgotId" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Identifiant/Mot de Passe oublié ?" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="300.0">
             <font>
                 <Font size="14.0" />
             </font>

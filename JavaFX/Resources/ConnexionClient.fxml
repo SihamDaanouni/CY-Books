@@ -6,43 +6,63 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.ConnexionClientController">
     <children>
-        <!-- Title Label centered at the top -->
-        <Label alignment="CENTER" text="Connexion Client" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-            <font>
-                <Font name="Arial Bold Italic" size="24.0" />
-            </font>
-        </Label>
+        <!-- Background StackPane to ensure white background -->
+        <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+            <children>
+                <!-- Main content -->
+                <VBox alignment="CENTER" spacing="20.0">
+                    <!-- Title Label centered at the top in a white box -->
+                    <StackPane alignment="CENTER" prefWidth="300.0" prefHeight="60.0" style="-fx-padding: 20 0 0 0;">
+                        <children>
+                            <Rectangle width="300.0" height="60.0" fill="white" stroke="black" strokeWidth="1"/>
+                            <Label alignment="CENTER" text="Connexion Client">
+                                <font>
+                                    <Font name="Arial Bold Italic" size="24.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </StackPane>
 
-        <!-- Main container VBox for centering the elements -->
-        <VBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" AnchorPane.bottomAnchor="0.0">
-            <!-- Mail Field and Label -->
-            <HBox alignment="CENTER" spacing="10.0">
-                <Label text="Mail du client :">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="mailField" promptText="Mail du client" />
-            </HBox>
+                    <!-- Form Container in a white square -->
+                    <StackPane>
+                        <children>
+                            <Rectangle width="400.0" height="200.0" fill="white" stroke="black" strokeWidth="1"/>
+                            <VBox alignment="CENTER" spacing="20.0">
+                                <!-- Mail Field and Label -->
+                                <HBox alignment="CENTER" spacing="10.0">
+                                    <Label text="Mail du client :">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Label>
+                                    <TextField fx:id="mailField" promptText="Mail du client" />
+                                </HBox>
 
-            <!-- Buttons -->
-            <Button mnemonicParsing="false" onAction="#handleLogin" text="Se Connecter">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#switchToNouveauClient" text="Créer un nouveau client">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Button>
-        </VBox>
+                                <!-- Buttons -->
+                                <Button mnemonicParsing="false" onAction="#handleLogin" text="Se Connecter">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                                <Button mnemonicParsing="false" onAction="#switchToNewClients" text="Créer un nouveau client">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                            </VBox>
+                        </children>
+                    </StackPane>
+                </VBox>
+            </children>
+        </StackPane>
 
         <!-- Retour Button -->
-        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToPageAccueil" text="Retour" />
+        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToHomePage" text="Retour" />
     </children>
 </AnchorPane>

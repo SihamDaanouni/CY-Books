@@ -6,15 +6,26 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="323.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.ClientSelectionDialogController">
     <children>
-        <TextField fx:id="searchClientField" layoutY="14.0" prefHeight="26.0" prefWidth="357.0" promptText="Rechercher un client" />
-        <ListView fx:id="clientListView" layoutY="40.0" prefHeight="119.0" prefWidth="358.0" visible="false" />
-        <DatePicker fx:id="dateRetourPicker" layoutX="78.0" layoutY="173.0" prefWidth="200.0" promptText="Date de retour" />
-        <Spinner fx:id="hourSpinner" layoutX="65.0" layoutY="214.0" prefWidth="90.0" />
-        <Spinner fx:id="minuteSpinner" layoutX="201.0" layoutY="214.0" prefWidth="90.0" />
-        <Button fx:id="confirmButton" layoutX="14.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleConfirm" text="Confirmer" />
-        <Button fx:id="cancelButton" layoutX="285.0" layoutY="283.0" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
+        <VBox spacing="20.0" alignment="CENTER" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+            <TextField fx:id="searchClientField" prefHeight="26.0" prefWidth="357.0" promptText="Rechercher un client" />
+            <ListView fx:id="clientListView" prefHeight="119.0" prefWidth="358.0" visible="false" />
+            <VBox spacing="10.0" alignment="CENTER">
+                <DatePicker fx:id="dateRetourPicker" prefWidth="200.0" promptText="Date de retour" />
+                <HBox spacing="10.0" alignment="CENTER">
+                    <Spinner fx:id="hourSpinner" prefWidth="90.0" />
+                    <Spinner fx:id="minuteSpinner" prefWidth="90.0" />
+                </HBox>
+            </VBox>
+            <HBox spacing="20.0" alignment="CENTER">
+                <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#handleConfirm" text="Confirmer" />
+                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
+            </HBox>
+        </VBox>
     </children>
 </AnchorPane>
