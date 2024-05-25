@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene5Controller" stylesheets="@NouveauClient.css">
+    <children>
+        <!-- Main container VBox for centering the elements -->
+        <VBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="0.0">
+            <!-- Title Label centered at the top -->
+            <Label text="Nouveau client" styleClass="label-title">
+                <font>
+                    <Font name="Arial Bold Italic" size="27.0" />
+                </font>
+            </Label>
+
+            <!-- Input fields and labels -->
+            <HBox alignment="CENTER" spacing="10.0">
+                <TextField fx:id="nom" promptText="Nom" styleClass="text-field" />
+                <TextField fx:id="prenom" promptText="Prénom" styleClass="text-field" />
+                <TextField fx:id="address" promptText="Adresse" styleClass="text-field" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0">
+                <TextField fx:id="email" promptText="Email" styleClass="text-field" />
+                <TextField fx:id="numtel" promptText="Numéro de téléphone" styleClass="text-field" />
+            </HBox>
+            <!-- Button to create a client -->
+            <Button mnemonicParsing="false" onAction="#clientCreation" prefHeight="44.0" prefWidth="99.0" text="Créer client" styleClass="button" />
+        </VBox>
+
+        <!-- Retour Button -->
+        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#switchToClientConnecte" text="Retour" styleClass="retour-button" />
+    </children>
+</AnchorPane>

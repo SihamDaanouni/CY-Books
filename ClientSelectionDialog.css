@@ -1,0 +1,85 @@
+/* Scene6.css */
+
+/* Style global pour l'application */
+.root {
+    -fx-background-image: url("photo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+/* Style pour les Labels */
+.label-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 36px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+/* Style pour les Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Couleur de fond au survol */
+}
+
+.retour-button {
+    -fx-padding: 5px 10px;
+}
+
+/* Style pour le TableView */
+.table-view {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent; /* Rendre le fond transparent pour voir le flou */
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table-view .cell {
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: rgba(236, 240, 241, 0.7); /* Fond semi-transparent pour voir l'effet de flou */
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+
+.table-view .cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Classe pour l'effet de flou */
+.blur-background {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-effect: gaussian-blur(20);
+}
+
+.text-field {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: #ecf0f1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-max-width: 200px; /* Limite la largeur des champs de texte */
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene6Controller" stylesheets="@Scene6.css">
+    <children>
+        <VBox spacing="10.0" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+            <HBox spacing="10.0">
+                <TextField fx:id="searchField" prefHeight="26.0" prefWidth="200.0" promptText="Recherche" styleClass="text-field search-field" />
+                <Button fx:id="resetButton" mnemonicParsing="false" onAction="#handleReset" text="Reset" styleClass="button reset-button" />
+                <ComboBox fx:id="filterComboBox" onAction="#handleFilter" prefWidth="100.0" promptText="Filtres" styleClass="combo-box filter-combo-box" />
+                <Button fx:id="retourButton" mnemonicParsing="false" onAction="#returnMenue" text="Retour" styleClass="retour-button" />
+            </HBox>
+            <HBox spacing="10.0">
+                <TextField fx:id="searchFieldBNF" prefHeight="26.0" prefWidth="200.0" promptText="Recherche BNF" styleClass="text-field search-field"  />
+                <Button fx:id="searchBNFButton" mnemonicParsing="false" onAction="#handleSearchBNF" text="Rechercher BNF" styleClass="button search-bnf-button" />
+                <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdateTable" text="Mettre à jour la table" styleClass="button update-button" />
+            </HBox>
+        </VBox>
+        <StackPane layoutX="14.0" layoutY="90.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0">
+            <Region fx:id="blurBackground" styleClass="blur-background" />
+            <TableView fx:id="tableViewBooks" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" />
+                    <TableColumn fx:id="colTitre" text="Titre" />
+                    <TableColumn fx:id="colAuteur" text="Auteur" />
+                    <TableColumn fx:id="colTheme" text="Thème" />
+                    <TableColumn fx:id="colIsbn" text="ISBN" />
+                    <TableColumn fx:id="colEditeur" text="Éditeur" />
+                    <TableColumn fx:id="colLieu" text="Lieu" />
+                    <TableColumn fx:id="colAnnee" text="Année" />
+                    <TableColumn fx:id="colAction" text="Action" />
+                </columns>
+            </TableView>
+        </StackPane>
+    </children>
+</AnchorPane>
