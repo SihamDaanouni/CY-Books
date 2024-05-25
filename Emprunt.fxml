@@ -28,9 +28,9 @@
                 <TableColumn fx:id="rendreColumn" prefWidth="111.199951171875" text="Actions" /> <!-- Nouvelle colonne pour le bouton Rendre -->
             </columns>
         </TableView>
-        <Button layoutX="524.0" layoutY="545.0" mnemonicParsing="false" onAction="#showClientInfo" styleClass="button" text="Changer les informations du client" />
-        <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchToPageAccueil" text="Retour" styleClass="retour-button" />
-        <Label layoutX="14.0" layoutY="687.0" text="Client : " />
-        <Label fx:id="userMail" layoutX="60.0" layoutY="687.0" />
+        <Button layoutX="524.0" layoutY="641.0" mnemonicParsing="false" onAction="#showClientInfo" styleClass="button" text="Changer les informations du client" />
+        <Button layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#switchToPageAccueil" styleClass="button" text="Retour" />
+        <Label layoutX="14.0" layoutY="687.0" text="Client : " styleClass="client-label" />
+        <Label fx:id="userMail" layoutX="60.0" layoutY="687.0" styleClass="client-label"/>
     </children>
 </AnchorPane>
