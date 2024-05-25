@@ -124,12 +124,12 @@
     -fx-background-color: #3498db; /* Couleur de fond des éléments sélectionnés */
     -fx-text-fill: white; /* Couleur du texte des éléments sélectionnés */
 }
-.retour-button {
-    -fx-background-color: #e74c3c;
-    -fx-text-fill: white;
+
+.client-label{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
     -fx-padding: 5px 10px;
-    -fx-border-radius: 15px;
-    -fx-background-radius: 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-font-size: 14px;
-    -fx-cursor: hand;
 }
