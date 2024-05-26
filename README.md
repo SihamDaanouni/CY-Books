@@ -113,10 +113,10 @@ java -cp ".:sqlite-jdbc-3.42.0.1.jar" Main
 
 ## Crédit :
 
-### Pascal LE ING1 GI1
+### Amine AIT MOUSSA ING1 GI2
 ### Siham DAANOUNI ING1 GI1
 ### Thomas HAUTION ING1 GI1
-### Amine AIT MOUSSA ING1 GI2
+### Pascal LE ING1 GI1
 ### Amaury PROVENT ING1 GI1
 
 ![image](https://github.com/SihamDaanouni/CY-Books/assets/82617886/024b5fe2-29a4-4771-ade6-37623fd728b2)
