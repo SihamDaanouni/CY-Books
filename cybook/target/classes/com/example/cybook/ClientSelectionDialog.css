@@ -67,7 +67,6 @@
     -fx-background-color: rgba(255, 255, 255, 0.1);
     -fx-background-insets: 0;
     -fx-background-radius: 0;
-    -fx-effect: gaussian-blur(20);
 }
 
 .text-field {
