@@ -16,34 +16,39 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * class ClientSelectionDialogController
+ */
+
 public class ClientSelectionDialogController {
 
     @FXML
-    private ListView<String> clientListView;     //  affiche liste utilisateur a choisir
+    private ListView<String> clientListView;     //  display the list of users
     @FXML
-    private DatePicker dateRetourPicker; // date a choisir pour l 'emprunt
+    private DatePicker dateRetourPicker; // the date we choose for the return
     @FXML
-    private Spinner<Integer> hourSpinner;   // selectione  heure de l empreunt
+    private Spinner<Integer> hourSpinner;   // select the hour of the borrow
     @FXML
-    private Spinner<Integer> minuteSpinner; //  selectionne minutes de l'emprunt
+    private Spinner<Integer> minuteSpinner; //  select the minutes of the borrow
     @FXML
-    private TextField searchClientField;    // barre de recherhce
+    private TextField searchClientField;    // Search bar
 
-    private Stage dialogStage; //  declaration de la fenetre du fichier
-    private Book book;    // declaration class book
-    private boolean confirmed = false; // etat du livre faut par defaut
+    private Stage dialogStage; //  declaration dialog stage
+    private Book book;
+    private boolean confirmed = false; // Book state set as False by default
     // List to show the clients
-    private ObservableList<String> clientList = FXCollections.observableArrayList(); // affiche la liste de tous les client comprer a la bar de recherhce
-    private FilteredList<String> filteredClients; // genere filtre par rapport a la personne voulu
+    private ObservableList<String> clientList = FXCollections.observableArrayList(); // display the list of all the clients
+    private FilteredList<String> filteredClients; // generate a filter
 
-    // initialize when the scene is generated
     @FXML
-    /**
-     * initialize
-     * initializes the controller
-     * loads all customers into the search database
-     */
+
+
+
+
     public void initialize() {
+/*
+  Initializes the controller and loads all customers into the search database.
+ */
         loadClients(); // loads all customers into the search database
 
         //  Initialise spinners with default values
@@ -233,7 +238,7 @@ public class ClientSelectionDialogController {
      * handleCancel
      * Closes the dialog stage
      */
-    // cancel the dialog scene
+
     @FXML
     private void handleCancel() {
         dialogStage.close();

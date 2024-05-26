@@ -11,6 +11,9 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.sql.*;
 
+/**
+ * ConnexionClientController
+ */
 public class ConnexionClientController {
 
     @FXML
@@ -19,8 +22,7 @@ public class ConnexionClientController {
 
     /**
      * handleLogin
-     * @param event
-     * @throws IOException
+     * @param event push a button
      * @throws URISyntaxException
      * verify if the mail exist and then set the label with the mail for the next scene with the mail that you put
      */
@@ -87,9 +89,10 @@ public class ConnexionClientController {
 
     /**
      * showAlert
-     * @param title
-     * @param message
      * allows you to generate specific errors
+     * @param title title of the alert
+     * @param message alert message
+     *
      */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

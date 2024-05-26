@@ -48,6 +48,11 @@ public class Emprunt1ClientController {
     private Label pageTitleLabel;
 
     // initialize when the scene is generated
+
+    /**
+     * initialize
+     * initialize data
+     */
     @FXML
     public void initialize() {
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -80,8 +85,14 @@ public class Emprunt1ClientController {
         });
     }
 
-    // set the email client and load all the borrow from the client
-    // loadBorrows() can't be possible in the initialize because he need the set of userMail before
+    /**
+     * displayClientMail
+     *  set the email client and load all the borrow from the client
+     *  loadBorrows() can't be possible in the initialize because he need the set of userMail before
+     * @param email mail of client
+     */
+    //
+    //
     public void displayClientMail(String email) {
         userMail.setText(email);
         loadBorrows(email);
@@ -147,9 +158,7 @@ public class Emprunt1ClientController {
     /**
      * returnBook$
      * update isReturn and the time when return of a borrow
-     * @param borrow
-     *
-     *
+     * @param borrow the concerned borrow
      */
     // update isReturn and the time when return of a borrow
     private void returnBook(Borrow borrow) {
@@ -197,9 +206,9 @@ public class Emprunt1ClientController {
     /**
      * switchToHomePage
      *  switch scene to PageAccueil.fxml
-     * @param event
+     * @param event the button click
      *
-     * @throws IOException
+     * @throws IOException exception
      *
      *
      */
@@ -209,9 +218,9 @@ public class Emprunt1ClientController {
     }
     /**
      * showClientInfo
-     *  show informations of the client then open the dialog for modify them
+     *  show information of the client then open the dialog for modify them
      */
-    // show informations of the client then open the dialog for modify them
+    // show information of the client then open the dialog for modify them
     @FXML
     private void showClientInfo() {
         try {
@@ -268,8 +277,8 @@ public class Emprunt1ClientController {
     /**
      * showAlert
      *  show an error message
-     * @param title
-     * @param message
+     * @param title the alert title
+     * @param message the alert message
      *
      *
      */

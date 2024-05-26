@@ -32,6 +32,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * Scene8Controller
+ * controller scene
+ *
+ */
 public class Scene8Controller {
 
     @FXML
@@ -55,7 +60,7 @@ public class Scene8Controller {
     private int currentId = 1;
     /**
      * initialize
-     * initialize when the scene is generated
+     * initializes when the scene is generated
      *
      *
      *
@@ -80,13 +85,11 @@ public class Scene8Controller {
         tableViewBooks.setItems(observableBooks);
     }
     /**
+     *
      * bestBooksLastMonth
-     * make
-     * @return List<Book>
-     *
-     *
+     * select the list of the top ten borrow book during the last month
      */
-    // make
+
     public List<Book> bestBooksLastMonth() {
         List<Book> books = new ArrayList<>();
         Connection co = null;
@@ -152,8 +155,9 @@ public class Scene8Controller {
      *
      * switch scene to PageAccueil.fxml
      * switch scene to PageAccueil.fxml
-     * @trows IOException
-     * @return returnMenue
+     * @param back back
+     * @throws IOException exception
+     *
      *
      *
      */
@@ -167,12 +171,11 @@ public class Scene8Controller {
      * @param isbn
      * switch scene to PageAccueil.fxml
      * switch scene to PageAccueil.fxml
-     * @trows IOException
-     * @trows InterruptedException
-     * @trows ParserConfigurationException
-     * @trows SAXException
-     * @trows SQLException
-     *
+     * @throws IOException exception
+     * @throws InterruptedException exception
+     * @throws ParserConfigurationException exception
+     * @throws SAXException exception
+     * @throws SQLException exception
      * @return Book
      *
      *
@@ -225,9 +228,9 @@ public class Scene8Controller {
     /**
      * getElementByTag
      * filter the xml file before send it to the database
-     * @param element
-     * @param tag
-     * @param code
+     * @param element element
+     * @param tag tag
+     * @param code tag
 
      *
      * @return BookString
@@ -255,12 +258,8 @@ public class Scene8Controller {
     /**
      * getTitle
      * get the Title from the XML API file
-     * @param element
-     *
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
     // get the Title from the XML API file
     private static String getTitle(Element element) {
@@ -279,13 +278,8 @@ public class Scene8Controller {
     /**
      * getAuthor
      * get the Author from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
     // get the Author from the XML API file
     private static String getAuthor(Element element) {
@@ -304,13 +298,8 @@ public class Scene8Controller {
     /**
      * getTheme
      * get the Theme from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
     // get the Theme from the XML API file
     private static String getTheme(Element element) {
@@ -329,13 +318,8 @@ public class Scene8Controller {
     /**
      * getPublisher
      * get the Publisher from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
     // get the Publisher from the XML API file
     private static String getPublisher(Element element) {
@@ -354,13 +338,8 @@ public class Scene8Controller {
     /**
      * getPublicationPlace
      * get the Publication place from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
         // get the Publication place from the XML API file
     private static String getPublicationPlace(Element element) {
@@ -379,13 +358,8 @@ public class Scene8Controller {
     /**
      * getPublicationYear
      * get the Publication year from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
     // get the Publication year from the XML API file
     private static String getPublicationYear(Element element) {

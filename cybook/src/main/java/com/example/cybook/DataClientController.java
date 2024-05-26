@@ -52,11 +52,11 @@ public class DataClientController {
     /**
      * setClientData
      * Setter for the client's Data
-     * @param name
-     * @param firstName
-     * @param address
-     * @param phone
-     * @param email
+     * @param name the client name
+     * @param firstName the client firstname
+     * @param address the client address
+     * @param phone the client phone number
+     * @param email the client email
      */
     public void setClientData(String name, String firstName, String address, String phone, String email) {
         nameField.setText(name);
@@ -69,7 +69,7 @@ public class DataClientController {
     /**
      * hadleSave
      * update the database with updateClientData(); with the data set in the different textField
-     * @throws URISyntaxException
+     * @throws URISyntaxException exception
      */
     @FXML
     private void handleSave() throws URISyntaxException {
@@ -90,12 +90,12 @@ public class DataClientController {
      * updateClientData
      * Change a client data and update it in the database, It's not possible to change the email
      *
-     * @param name
-     * @param firstName
-     * @param address
-     * @param phone
-     * @param email
-     * @throws URISyntaxException
+     * @param name the client name
+     * @param firstName the client firstname
+     * @param address the client address
+     * @param phone the client phone number
+     * @param email the client email
+     * @throws URISyntaxException exception
      */
     private void updateClientData(String name, String firstName, String address, String phone, String email) throws URISyntaxException {
         URL resource = getClass().getClassLoader().getResource("database");
@@ -151,7 +151,7 @@ public class DataClientController {
     /**
      * Connection
      * allow connection to the driver
-     * @param url
+     * @param url url
      */
     private Connection connect(String url) {
         Connection conn = null;

@@ -7,9 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
-import java.io.IOException;
 import java.sql.*;
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -19,8 +18,8 @@ public class Main extends Application {
     /**
      * start
      * start function, set up the root
-     * @param stage
-     * @throws IOException
+     * @param stage the javafx stage
+     * @throws IOException exception
      *
      *
      */
@@ -63,8 +62,8 @@ public class Main extends Application {
     /**
      * switchScene
      * the main function to switch scene
-     * @param  fxml
-     * @throws IOException
+     * @param  fxml the fxml scene that we will be redirected
+     * @throws IOException exception
      *
      *
      */
@@ -77,6 +76,10 @@ public class Main extends Application {
         primaryStage.setMaximized(true);
     }
 
+    /**
+     *  getController
+     * @return fxmlLoader
+     */
     // get the controller
     public static Object getController() {
         return fxmlLoader.getController();
@@ -91,9 +94,9 @@ public class Main extends Application {
 
     /**
      * checkAndInitializeDatabase
-     * verify if the database is empty, if so fill it 
-     * @param conn
-     * @throws SQLException
+     * verify if the database is empty, if so fill it
+     * @param conn connection
+     * @throws SQLException exception
      */
     private static void checkAndInitializeDatabase(Connection conn) throws SQLException {
         Statement statement = conn.createStatement();

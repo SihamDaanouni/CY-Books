@@ -44,8 +44,8 @@ public class Scene2Controller {
     /**
      * Connection
      * is used to be connected to the database
-     * @trows SQLException
-     * @trows  URISyntaxException
+     * @throws  SQLException exception
+     * @throws  URISyntaxException exception
      *
      * @return  Connection
      *
@@ -67,8 +67,8 @@ public class Scene2Controller {
     /**
      * checkCredentials
      * verify the information with the one in the database
-     * @param email
-     * @param password
+     * @param email the librarian email
+     * @param password the librarian password
 
      *
      * @return boolean
@@ -95,11 +95,8 @@ public class Scene2Controller {
     /**
      * handleLogin
      * get the information in the TextField and test them with the one in the database, if correct access to the next scene
-     * @param event
-     * @trows  IOException
-     *
-     *
-     *
+     * @param event the button click
+     * @throws  IOException exception
      */
 
     // get the information in the TextField and test them with the one in the database, if correct access to the next scene

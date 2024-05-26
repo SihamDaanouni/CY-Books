@@ -35,6 +35,10 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ *vScene6Controller
+ * Scene6Controller
+ */
 public class Scene6Controller {
 
     private Stage stage;
@@ -75,7 +79,8 @@ public class Scene6Controller {
     private Task<Void> currentTask; // list of the current task
 
     /**
-     * initialize     *  when the scene is generated
+     * initialize
+     * when the scene is generated
      */
 
     // initialize when the scene is generated
@@ -195,7 +200,7 @@ public class Scene6Controller {
     /**
      * getPublicationYear
      * Select only one filter to give a specific answer
-     * @param event
+     * @param event the button click
      */
 
     // Select only one filter to give a specific answer
@@ -253,7 +258,7 @@ public class Scene6Controller {
     /**
      * handleReset
      * reset the table with the right data (used after the API drop the actual Books table to full it with new books)
-     * @param event
+     * @param event the button click
      */
 
 
@@ -266,8 +271,8 @@ public class Scene6Controller {
 
     /**
      * showClientSelectionDialog
-     * the dialog who show all the client possible to borrow the book and set the return date
-     * @param book
+     * the dialog which show all the client possible to borrow the book and set the return date
+     * @param book the concerned book
      */
 
     // the dialog who show all the client possible to borrow the book and set the return date
@@ -308,11 +313,11 @@ public class Scene6Controller {
     /**
      * insertBorrowRecord
      * insert the "borrow ticket" in the database
-     * @param book
-     * @param mail
-     * @param name
-     * @param firstName
-     * @param returnDate
+     * @param book the borrowed book
+     * @param mail the client email
+     * @param name the client name
+     * @param firstName the client firstname
+     * @param returnDate the return date of the book
 
      *
      */
@@ -360,8 +365,8 @@ public class Scene6Controller {
     /**
      * returnMenue
      * switch scene to PageAccueil.fxml
-     * @param back
-     * @throws IOException
+     * @param back the back button click
+     * @throws IOException exception
      *
      *
      *
@@ -375,7 +380,7 @@ public class Scene6Controller {
     /**
      * handleSearchBNF
      *searchbar for the BNF API request
-     * @param event
+     * @param event the button click
      */
 
     // searchbar for the BNF API request
@@ -415,7 +420,7 @@ public class Scene6Controller {
     /**
      * handleUpdateTable
      *Update the tableViews with the right books
-     * @param event
+     * @param event the button click
      */
 
     // Update the tableViews with the right books
@@ -430,8 +435,8 @@ public class Scene6Controller {
     /**
      * resetTable
      * reset the tableViews from all the filter set
-     * @throws SQLException
-     * @throws URISyntaxException
+     * @throws SQLException exception
+     * @throws URISyntaxException exception
      *
      */
 
@@ -467,14 +472,13 @@ public class Scene6Controller {
     /**
      * searchBNF
      * the API BNF search, with what is search in parameter
-     * @param search
-     * @throws IOException
-     * @throws InterruptedException
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws SQLException
-
-     * @throws URISyntaxException
+     * @param search the search
+     * @throws IOException exception
+     * @throws InterruptedException exception
+     * @throws ParserConfigurationException exception
+     * @throws SAXException exception
+     * @throws SQLException exception
+     * @throws URISyntaxException exception
      *
      */
     // the API BNF search, with what is search in parameter
@@ -576,15 +580,10 @@ public class Scene6Controller {
     /**
      * getElementByTag
      *  filter the xml file before send it to the database
-     * @param element
-     * @param tag
-     * @param code
-
-
-     *
+     * @param element the element
+     * @param tag his tag
+     * @param code his code
      * @return String
-     *
-     *
      */
 
     // filter the xml file before send it to the database
@@ -609,14 +608,8 @@ public class Scene6Controller {
     /**
      * getTitle
      * get the Title from the XML API file
-     * @param element
-
-
-
-     *
+     * @param element the element
      * @return String
-     *
-     *
      */
 
 
@@ -639,14 +632,8 @@ public class Scene6Controller {
     /**
      * getAuthor
      * get the Autor from the XML API file
-     * @param element
-
-
-
-     *
+     * @param element the element
      * @return String
-     *
-     *
      */
 
     // get the Autor from the XML API file
@@ -667,14 +654,8 @@ public class Scene6Controller {
     /**
      * getTheme
      * get the Theme from the XML API file
-     * @param element
-
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
 
     // get the Theme from the XML API file
@@ -696,17 +677,9 @@ public class Scene6Controller {
     /**
      * getPublisher
      * get the Publisher from the XML API file
-     * @param element
-
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
-
-    // get the Publisher from the XML API file
     private static String getPublisher(Element element) {
         String[] tags = {"210", "260"};
         String publisher = "Non trouvé";
@@ -725,14 +698,8 @@ public class Scene6Controller {
     /**
      * getPublicationPlace
      * get the Publication place from the XML API file
-     * @param element
-
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
 
     // get the Publication place from the XML API file
@@ -753,13 +720,8 @@ public class Scene6Controller {
     /**
      * getPublicationYear
      * get the Publication year from the XML API file
-     * @param element
-
-
-     *
+     * @param element element
      * @return String
-     *
-     *
      */
 
     // get the Publication year from the XML API file

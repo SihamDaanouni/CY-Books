@@ -20,6 +20,10 @@ import java.net.URL;
 import java.sql.*;
 import javafx.scene.Parent;
 
+/**
+ * Scene5Controller
+ * Scene5Controller
+ */
 public class Scene5Controller {
 
     private Stage stage;
@@ -44,8 +48,8 @@ public class Scene5Controller {
     /**
      * switchToConnectedClient
      * switch to ConnectedClient Scene
-     *
-     * @throws IOException
+     * @param event event
+     * @throws IOException exception
      */
     public void switchToConnectedClient(ActionEvent event) throws IOException {
         Main.switchScene("/com/example/cybook/ConnexionClient.fxml");
@@ -54,7 +58,7 @@ public class Scene5Controller {
     /**
      * isEmailPresent
      * Return true if the email is in the database, and false if it is not
-     * @param email
+     * @param email the new client email
      * @return boolean for the email uniqueness
      */
     private boolean isEmailPresent(String email) {
@@ -88,9 +92,10 @@ public class Scene5Controller {
      * addUser
      * Add a new user to the client database
      * @param name the name
+     * @param address adress of client
      * @param firstName the first name
      * @param phone the phone number
-     * @param email the email adress
+     * @param email the email address
      */
     public void addUser(String name, String firstName, String address, String phone, String email) {
         String sql = "INSERT INTO Client (name, firstName, address, phone, mail) VALUES (?, ?, ?, ?, ?)";
@@ -124,8 +129,8 @@ public class Scene5Controller {
     /**
      * clientCreation
      * Method that manage the client creation, ok if the email is not used already in the database
-     * @param event
-     * @throws IOException
+     * @param event the click button
+     * @throws IOException exception
      */
     @FXML
     private void ClientCreation(ActionEvent event) throws IOException {
@@ -157,8 +162,8 @@ public class Scene5Controller {
     /**
      * ShowAlert
      * Display a specific message as an alert
-     * @param title
-     * @param message
+     * @param title alert title
+     * @param message alert message
      */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
