@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cybook.Scene8Controller" stylesheets="@Scene6.css">
+    <children>
+        <TableView fx:id="tableViewBooks" layoutX="13.0" layoutY="68.0" prefHeight="320.0" prefWidth="654.0" AnchorPane.topAnchor="68.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" AnchorPane.bottomAnchor="12.0" styleClass="table-view blur-background">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" />
+                <TableColumn fx:id="colTitre" text="Titre" />
+                <TableColumn fx:id="colAuteur" text="Auteur" />
+                <TableColumn fx:id="colTheme" text="Thème" />
+                <TableColumn fx:id="colIsbn" text="ISBN" />
+                <TableColumn fx:id="colEditeur" text="Éditeur" />
+                <TableColumn fx:id="colLieu" text="Lieu" />
+                <TableColumn fx:id="colAnnee" text="Année" />
+            </columns>
+        </TableView>
+        <HBox layoutX="0.0" layoutY="14.0" prefWidth="675.0" alignment="CENTER" AnchorPane.topAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label text="TOP 10 du mois" styleClass="label-title">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Label>
+        </HBox>
+        <Button fx:id="returnButton" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#returnMenue" text="Retour" styleClass="retour-button" AnchorPane.topAnchor="28.0" AnchorPane.leftAnchor="14.0" />
+    </children>
+</AnchorPane>

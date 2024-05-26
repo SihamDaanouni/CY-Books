@@ -1,0 +1,135 @@
+/* Scene7.css */
+/* Background */
+.root {
+    -fx-background-image: url("photo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+.HBox {
+    -fx-border-color: #a40243;
+}
+/* Style for TextFields */
+.text-field {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: #ecf0f1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-max-width: 200px; /* Limits the width of text fields */
+}
+
+/* Style for Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Hover background color (on mouse over) */
+}
+
+/* Style for TableView */
+.table-view {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table-view .cell {
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: rgba(236, 240, 241, 0.7);
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+
+.table-view .cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+
+.filter-combo-box {
+    -fx-pref-width: 100px;
+}
+
+.reset-button, .search-bnf-button, .update-button, .retour-button {
+    -fx-font-size: 14px;
+}
+
+/* Blur effect */
+.blur-background {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+
+/* Style for ComboBox */
+.combo-box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db; /* The border color */
+    -fx-border-width: 2px;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white; /* The text's color */
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #3498db;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white; /* Arrow button color */
+}
+
+.combo-box:hover {
+    -fx-background-color: #2980b9; /* Couleur de fond au survol */
+    -fx-border-color: #2980b9; /* Couleur de la bordure au survol */
+}
+
+
+.combo-box .list-cell {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #2980b9; /* Hover background color (on mouse over) */
+}
+
+.combo-box .list-cell:filled:selected {
+    -fx-background-color: #3498db; /* List item background color */
+    -fx-text-fill: white; /* List item text color */
+}
+.retour-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}

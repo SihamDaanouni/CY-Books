@@ -1,0 +1,67 @@
+/* ConnexionClient.css */
+
+/* global background */
+.root {
+    -fx-background-image: url("photo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+/* Style for Labels */
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+/* Style for principal label  */
+.label-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 24px;
+    -fx-alignment: center;
+}
+
+/* Style for TextFields */
+.text-field {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: #ecf0f1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 5px;
+    -fx-font-size: 14px;
+    -fx-alignment: center-left;
+    -fx-max-width: 200px; /* Limits the width of text fields */
+}
+
+/* Style for Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Hover background color (on mouse over) */
+}
+
+/* Style for the back button */
+.retour-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.retour-button:hover {
+    -fx-background-color: #c0392b; /* Hover background color (on mouse over) */
+}

@@ -1,0 +1,81 @@
+/* Scene8.css */
+
+/* Background */
+.root {
+    -fx-background-image: url("photo.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-color: #f4f4f4;
+    -fx-font-family: "Arial";
+}
+
+/* Style for Labels */
+.label-title {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 36px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+}
+
+/* Style for Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Hover background color (on mouse over) */
+}
+
+.retour-button {
+    -fx-padding: 5px 10px;
+}
+
+/* Style pour le TableView */
+.table-view {
+    -fx-border-color: #bdc3c7;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent; /* make the background transparent to allo the blur effect */
+}
+
+.table-view .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table-view .cell {
+    -fx-border-color: #bdc3c7;
+    -fx-background-color: rgba(236, 240, 241, 0.7);
+}
+
+.table-view .cell:selected {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+}
+
+.table-view .cell:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Blur effect */
+.blur-background {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.retour-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
