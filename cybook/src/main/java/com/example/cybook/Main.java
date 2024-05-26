@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.sql.*;
 
 public class Main extends Application {
 
@@ -91,7 +92,7 @@ public class Main extends Application {
     /**
      * checkAndInitializeDatabase
      * verify if the database is empty, if so fill it 
-     * @param Connection
+     * @param conn
      * @throws SQLException
      */
     private static void checkAndInitializeDatabase(Connection conn) throws SQLException {
