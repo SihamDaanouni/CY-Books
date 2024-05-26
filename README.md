@@ -28,8 +28,8 @@ Si il n'est pas présent, le code est conçu pour le générer naturellement ave
 
 ## Installation
 
-1)Créer un dossier vide. Ce dossier accueillera l'application CY-Books.
-2)Lancer IntelliJ. Si vous arrivez sur un autre de vos projets, faites File> Close Project.
+1) Créer un dossier vide. Ce dossier accueillera l'application CY-Books.
+2) Lancer IntelliJ. Si vous arrivez sur un autre de vos projets, faites File> Close Project.
 3) Choisissez Get from VCS en haut à droite de la page.
 4) Si git n'est pas installé, faites-le en cliquant sur le lien bleue.
 5) Choisissez git pour Version control, dans URL mettez le lien du projet GitHub (lien : https://github.com/SihamDaanouni/CY-Books.git), 
@@ -39,11 +39,11 @@ et dans Directory mettez le chemin vers le dossier accueillant le projet.
 8) Une pop-up vous indiquant de load le Maven apparaitra dans le coin en bas à droite de votre écran, cliquez sur Load.
 9) Faites File>Project structure. Choisissez Libraries, cliquez sur le + en haut à gauche, choisissez Java. Puis trouver le fichier 
 sql depuis votre dossier (votrechemin\src\main\resources\mysql-connector-java-8.0.30.jar). Appuyez sur Ok, et choisissez CY Book.
-10)En bas à droite, faite Apply, puis Ok.
+10) En bas à droite, faite Apply, puis Ok.
 11) A droite de votre page Intellij, cliquer sur database, faites +, Data Source from Path, puis choisissez le document appelé database
 (chemindossier\cybook\src\main\resources\database), puis faites Ok
-12)Pour le driver, choisissez SQLite, puis cliquez sur Ok, puis Ok sur la page qui apparait ensuite.
-13)Sur la page principale, une console s'ouvre, saisissez "create table database;" dedans, executé (flèche verte en haut à gauche)
+12) Pour le driver, choisissez SQLite, puis cliquez sur Ok, puis Ok sur la page qui apparait ensuite.
+13) Sur la page principale, une console s'ouvre, saisissez "create table database;" dedans, executé (flèche verte en haut à gauche)
 Malgré les erreurs, fermez "console".
 
 
